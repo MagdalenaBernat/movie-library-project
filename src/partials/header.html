@@ -1,15 +1,18 @@
 <header class="header">
   <nav class="header__navigation">
-    <a class="navigation__logo-link">
-      <svg class="navigation__logo-svg">
-        <use href="./images/sprite.svg#icon-logo" />
-      </svg>
-    </a>
+    <div class="navigation__logo-name-container">
+      <a class="navigation__logo-link">
+        <svg class="navigation__logo-svg">
+          <use href="./images/sprite.svg#icon-logo" />
+        </svg>
+      </a>
+      <h1 class="navigation__website-name">Filmoteka</h1>
+    </div>
     <ul class="navigation__links-list">
       <li class="navigation__list-item">
-        <a href="/" class="navigation__list-link navigation__list-link--active"
-          >Home</a
-        >
+        <a href="/" class="navigation__list-link navigation__list-link--active">
+          Home
+        </a>
       </li>
       <li class="navigation__list-item">
         <a href="/" class="navigation__list-link">My library</a>
@@ -24,4 +27,15 @@
       name="search"
     />
   </form>
+  <p class="header__error-message hidden">
+    Search result not succesful. Enter the correct movie name
+  </p>
+  <ul class="header__buttons-list hidden">
+    <li class="header__buttons-list-item">
+      <button class="header__list-button">Watched</button>
+    </li>
+    <li class="header__buttons-list-item">
+      <button class="header__list-button">Queue</button>
+    </li>
+  </ul>
 </header>
