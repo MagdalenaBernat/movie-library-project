@@ -1,0 +1,64 @@
+.covers-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-basis: 400px;
+  gap: 30px;
+}
+.cover__container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 20px;
+  width: 280px;
+  height: 443px;
+}
+.cover__image {
+  width: 100%;
+  max-height: 402px;
+  border-radius: 5px;
+  contain: content;
+}
+.cover__figcaption {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-top: 10px;
+  &-title {
+    @include font($fw: 500, $tt: uppercase, $fs: 12px, $lh: 14px, $tal: left);
+    color: var(--black);
+    @media screen and (min-width: 1024px) {
+      line-height: 16px;
+    }
+  }
+}
+.cover__figcaption-movie-data {
+  @include font($fw: 500, $fs: 10px, $lh: 14px, $tal: left);
+  color: var(--orange-info);
+  @media screen and (min-width: 1024px) {
+    line-height: 16px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .cover__image {
+    width: 100%;
+    max-height: 398px;
+  }
+  .cover__container {
+    width: 293px;
+    height: 443px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .cover__image {
+    width: 100%;
+    max-height: 398px;
+  }
+  .cover__container {
+    width: 274px;
+    height: 440px;
+  }
+}
