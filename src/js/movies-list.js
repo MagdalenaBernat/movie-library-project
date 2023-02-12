@@ -1,37 +1,37 @@
 'use strict';
 
+import axios from 'axios';
+
 const moviesContainer = document.querySelector('.covers-container');
 
-const getmoviesArray = async url => {
-  const response = await fetch(url);
-  const jsonResponse = await response.json();
-  const moviesArray = await jsonResponse.results;
-  console.log(moviesArray); //to remove after development stage
+const genresList = {};
+
+const getGenres = async url => {
+  const response = await axios.get(url);
+  const responseArray = await response.data.genres;
+
+  await responseArray.map(genre => {
+    genresList[`${genre['id']}`] = genre.name;
+  });
+
+  return genresList;
+};
+
+//Getting genres
+getGenres(
+  'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
+).then(
+  getGenres(
+    'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
+  )
+);
+
+const getMovies = async url => {
+  const response = await axios.get(url);
+  const moviesArray = await response.data.results;
+
   return moviesArray;
 };
-
-const getGenresArray = async url => {
-  const response = await fetch(url);
-  const jsonResponse = await response.json();
-  const genresArray = await jsonResponse.genres;
-  // console.log(genresArray); //to remove after development stage
-  return genresArray;
-};
-
-//Getting genres (to complete)
-// getGenresArray(
-//   'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
-// );
-
-// const genreDecoding = movieGenres => {
-//   movieGenres.forEach(genreId => {
-//     for (const genre of genresArray) {
-//       if (genre.id === genreId) {
-//         console.log(genre.name);
-//       }
-//     }
-//   });
-// };
 
 const listBuilder = moviesArray => {
   moviesArray.forEach(elem => {
@@ -54,7 +54,7 @@ const listBuilder = moviesArray => {
     coverFigcaption.classList.add('cover__figcaption');
 
     //Header for movie title
-    const movieTitle = document.createElement('h2');
+    const movieTitle = document.createElement('h3');
     movieTitle.classList.add('cover__figcaption-title');
 
     if (elem['name']) {
@@ -68,9 +68,20 @@ const listBuilder = moviesArray => {
     //Tag for movie data (genres, release date)
     const movieData = document.createElement('p');
     movieData.classList.add('cover__figcaption-movie-data');
-    movieData.innerHTML = elem;
 
-    // genreDecoding(elem['genre_ids']);
+    const movieGenresArray = [];
+
+    for (const id of elem['genre_ids']) {
+      movieGenresArray.push(genresList[`${id}`]);
+    }
+
+    const releaseDate = new Date(
+      `${elem['release_date'] || elem['first_air_date']}`
+    );
+
+    movieData.innerHTML = `${movieGenresArray.join(
+      ', '
+    )} | ${releaseDate.getFullYear()}`;
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);
@@ -80,10 +91,10 @@ const listBuilder = moviesArray => {
   });
 };
 
-getmoviesArray(
+getMovies(
   'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981'
 ).then(response => {
   listBuilder(response);
 });
 
-export { listBuilder, getmoviesArray, getGenresArray };
+export { listBuilder, getMovies, getGenres };
