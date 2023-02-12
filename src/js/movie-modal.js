@@ -2,12 +2,13 @@
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
+  const body = document.querySelector('body');
 
   movieModal.innerHTML = '';
   movieModal.classList.remove('is-hidden');
   const parsedGenres = movie.genres.map(genre => genre.name).join(', ');
 
-  movieModal.innerHTML = `<div class="movie-modal__content"><button type="button" class="movie-modal__close-btn">x</button>
+  const markup = `<div class="movie-modal__content"><button type="button" class="movie-modal__close-btn">x</button>
 <div class="movie-modal__image-container">
   <img
     class="movie-modal__image"
@@ -60,9 +61,15 @@ export function renderModal(movie) {
 </div>
   </div>`;
 
+  movieModal.innerHTML = markup;
+
   const closeBtn = document.querySelector('.movie-modal__close-btn');
 
   closeBtn.addEventListener('click', () => {
+    movieModal.classList.add('is-hidden');
+  });
+
+  body.addEventListener('click', () => {
     movieModal.classList.add('is-hidden');
   });
 
