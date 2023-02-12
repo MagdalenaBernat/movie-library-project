@@ -1,0 +1,143 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M297.199 248.934l-48.265 48.265 214.801 214.801-214.801 214.801 48.265 48.265 214.801-214.801 214.801 214.801 48.265-48.265-214.801-214.801 214.801-214.801-48.265-48.265-214.801 214.801z"
+        ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "close_omg"
+        ],
+        "colorPermutations": {}
+      },
+      "attrs": [],
+      "properties": {
+        "order": 57,
+        "id": 3,
+        "name": "close",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M551.385 1014.548l-77.194-77.194c-286.72-253.637-474.191-424.566-474.191-634.092 0-170.929 132.332-303.262 303.262-303.262 93.735 0 187.471 44.111 248.123 115.791 60.652-71.68 154.388-115.791 248.123-115.791 170.929 0 303.262 132.332 303.262 303.262 0 209.526-187.471 380.455-474.191 634.092l-77.194 77.194z"
+        ],
+        "attrs": [],
+        "width": 1103,
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "heart_omg"
+        ],
+        "colorPermutations": {}
+      },
+      "attrs": [],
+      "properties": {
+        "order": 56,
+        "id": 2,
+        "name": "heart",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
+          "M178.347 42.667c-74.788 0.362-135.319 60.892-135.68 135.646l-0 0.034v667.307c0.362 74.788 60.892 135.319 135.646 135.68l0.034 0h667.307c74.788-0.362 135.319-60.892 135.68-135.646l0-0.034v-667.307c-0.362-74.788-60.892-135.319-135.646-135.68l-0.034-0h-546.987zM178.347 128h77.653v128h-128v-77.653c0-28.331 22.016-50.347 50.347-50.347zM341.333 128h341.333v341.333h-341.333v-170.667zM768 128h77.653c28.331 0 50.347 22.016 50.347 50.347v77.653h-128zM128 341.333h128v128h-128zM768 341.333h128v128h-128zM128 554.667h128v128h-128zM341.333 554.667h341.333v341.333h-341.333v-170.667zM768 554.667h128v128h-128zM128 768h128v128h-77.653c-28.331 0-50.347-22.016-50.347-50.347zM768 768h128v77.653c0 28.331-22.016 50.347-50.347 50.347h-77.653z"
+        ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "logo_omg"
+        ],
+        "colorPermutations": {}
+      },
+      "attrs": [],
+      "properties": {
+        "order": 55,
+        "id": 1,
+        "name": "logo",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 2
+    },
+    {
+      "icon": {
+        "paths": [
+          "M469.333 85.333c-124.416 0-223.147 48.213-287.829 121.003s-96.171 168.107-96.171 262.997c0 94.805 31.488 190.208 96.171 262.997s163.413 121.003 287.829 121.003c99.157 0 176.043-36.096 238.336-85.333l158.123 158.208c7.731 7.731 18.411 12.513 30.208 12.513 23.594 0 42.721-19.127 42.721-42.721 0-11.797-4.782-22.477-12.513-30.208h-0l-155.904-155.819c53.419-69.717 83.029-154.453 83.029-240.64 0-94.805-31.488-190.208-96.171-262.997s-163.413-121.003-287.829-121.003zM469.333 170.667c103.083 0 175.104 37.12 224.171 92.331s74.496 130.56 74.496 206.336c0 75.861-25.429 151.125-74.496 206.336-52.992 65.707-153.173 91.392-224.171 92.331-103.083 0-175.104-37.12-224.171-92.331s-74.496-130.56-74.496-206.336c0-75.861 25.429-151.125 74.496-206.336s121.088-92.331 224.171-92.331z"
+        ],
+        "attrs": [],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "grid": 0,
+        "tags": [
+          "search_omg"
+        ],
+        "colorPermutations": {}
+      },
+      "attrs": [],
+      "properties": {
+        "order": 54,
+        "id": 0,
+        "name": "search",
+        "prevSize": 32
+      },
+      "setIdx": 0,
+      "setId": 3,
+      "iconIdx": 3
+    }
+  ],
+  "height": 1024,
+  "preferences": {
+    "showGlyphs": true,
+    "showCodes": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {},
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      }
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": false,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215,
+      "name": "sprite",
+      "classSelector": ".icon",
+      "height": 32,
+      "columns": 16,
+      "margin": 16,
+      "autoHost": true,
+      "minifyJs": true,
+      "overrideSize": true
+    },
+    "historySize": 50,
+    "quickUsageToken": {
+      "UntitledProject1": "ZDUwOWYxNTQzNWYyY2ZkZjgyZGIxY2JmZDM0ZWU5ZGUjMSMxNjY2OTUyODIyIyMjM2ZiYWZiZmFkNjA4"
+    },
+    "gridSize": 16
+  }
+}
