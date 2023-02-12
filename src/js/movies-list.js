@@ -5,7 +5,6 @@ import axios from 'axios';
 const moviesContainer = document.querySelector('.covers-container');
 
 const genresList = {};
-let genresResponseStatus = 0;
 
 const getGenres = async url => {
   const genresResponse = await axios.get(url);
@@ -18,24 +17,27 @@ const getGenres = async url => {
   return genresList;
 };
 
-//Getting genres
-getGenres(
-  'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
-)
-  .then(
-    getGenres(
-      'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
-    )
-  )
-  .then(() => {
-    genresResponseStatus = 200;
-  });
-
 const getMovies = async url => {
   const moviesResponse = await axios.get(url);
   const moviesArray = await moviesResponse.data.results;
 
   return moviesArray;
+};
+
+const defaultMoviesURL =
+  'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981';
+const TVGenresLink =
+  'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
+const movieGenresLink =
+  'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
+const APIKey = '?api_key=ac2189c49864b4ab99e8ac3560f99981';
+
+const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
+  const movieGenres = await getGenres(movieGenresLink);
+  const TVGenres = await getGenres(TVGenresLink);
+  const moviesList = await getMovies(searchURL).then(response => {
+    listBuilder(response);
+  });
 };
 
 const listBuilder = moviesArray => {
@@ -96,19 +98,6 @@ const listBuilder = moviesArray => {
   });
 };
 
-let timeoutID;
+getDataFromAPI();
 
-getMovies(
-  'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981'
-).then(response => {
-  if (genresResponseStatus === 200) {
-    listBuilder(response);
-  } else {
-    console.log('Brak gatunków!!!'); //Only for tests, to remove after development
-    timeoutID = setTimeout(() => {
-      listBuilder(response);
-    }, 1500);
-  }
-});
-
-export { listBuilder, getMovies, getGenres };
+export { listBuilder, getMovies, getGenres, getDataFromAPI };
