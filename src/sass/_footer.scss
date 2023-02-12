@@ -1,0 +1,33 @@
+.footer__container {
+  min-width: 320px;
+  background: #f7f7f7;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #545454;
+}
+
+.footer__logo-svg {
+  //styles for heart icon
+}
+
+.footer__license {
+  padding: 0 66px 10px 66px;
+}
+
+@media (min-width: 768px) {
+  .footer__container {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .footer__license {
+    padding: 0;
+  }
+}
