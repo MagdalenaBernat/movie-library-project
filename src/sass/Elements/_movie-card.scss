@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   flex-basis: 400px;
   gap: 30px;
+  padding: 20px;
 }
 .cover__container {
   display: flex;
@@ -36,7 +37,7 @@
   }
 }
 .cover__figcaption-movie-data {
-  @include font($fw: 500, $fs: 10px, $lh: 14px, $tal: left);
+  @include font($fw: 500, $fs: 12px, $lh: 14px, $tal: left);
   color: var(--orange-info);
   @media screen and (min-width: 1024px) {
     line-height: 16px;
