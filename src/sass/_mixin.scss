@@ -1,0 +1,19 @@
+@mixin font(
+  $fss: normal,
+  $fs: 12px,
+  $fw: 500,
+  $lh: 14px,
+  $ls: 0.03em,
+  $tt: none,
+  $tal: center,
+  $td: none
+) {
+  text-align: $tal;
+  text-transform: $tt;
+  font-style: $fss;
+  font-size: $fs;
+  font-weight: $fw;
+  line-height: $lh;
+  letter-spacing: $ls;
+  text-decoration: $td;
+}
