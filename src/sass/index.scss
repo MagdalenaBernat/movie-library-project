@@ -1,3 +1,5 @@
+@import './vars.scss';
+@import './mixin.scss';
 @import './common';
-@import './example';
-@import './header';
+@import './Elements/movie-card.scss';
+@import './Elements/header.scss';

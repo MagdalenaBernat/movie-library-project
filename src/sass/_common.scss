@@ -1,1 +1,16 @@
 @import "~node_modules/modern-normalize/modern-normalize.css";
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+body {
+  font-family: 'Roboto';
+}
