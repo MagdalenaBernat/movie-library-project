@@ -5,12 +5,13 @@ import axios from 'axios';
 const moviesContainer = document.querySelector('.covers-container');
 
 const genresList = {};
+let genresResponseStatus = 0;
 
 const getGenres = async url => {
-  const response = await axios.get(url);
-  const responseArray = await response.data.genres;
+  const genresResponse = await axios.get(url);
+  const genresArray = await genresResponse.data.genres;
 
-  await responseArray.map(genre => {
+  await genresArray.map(genre => {
     genresList[`${genre['id']}`] = genre.name;
   });
 
@@ -20,15 +21,19 @@ const getGenres = async url => {
 //Getting genres
 getGenres(
   'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
-).then(
-  getGenres(
-    'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
+)
+  .then(
+    getGenres(
+      'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
+    )
   )
-);
+  .then(() => {
+    genresResponseStatus = 200;
+  });
 
 const getMovies = async url => {
-  const response = await axios.get(url);
-  const moviesArray = await response.data.results;
+  const moviesResponse = await axios.get(url);
+  const moviesArray = await moviesResponse.data.results;
 
   return moviesArray;
 };
@@ -91,10 +96,19 @@ const listBuilder = moviesArray => {
   });
 };
 
+let timeoutID;
+
 getMovies(
   'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981'
 ).then(response => {
-  listBuilder(response);
+  if (genresResponseStatus === 200) {
+    listBuilder(response);
+  } else {
+    console.log('Brak gatunków!!!'); //Only for tests, to remove after development
+    timeoutID = setTimeout(() => {
+      listBuilder(response);
+    }, 1500);
+  }
 });
 
 export { listBuilder, getMovies, getGenres };
