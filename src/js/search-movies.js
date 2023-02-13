@@ -1,49 +1,48 @@
-'use strict';
-
 import axios from 'axios';
-import { addSpinner, removeSpinner } from './spinner';
+import { Notify } from 'notiflix';
+import { genresList, APIKey } from './movies-list';
 
-const moviesContainer = document.querySelector('.covers-container');
+export async function fetchMovies(title, page) {
+  return await axios
+    .get(
+      `https://api.themoviedb.org/3/search/movie?api_key=${APIKey}&query=${title}&page=${page}`
+    )
+    .then(response => response.data)
+    .catch(error => console.log(error.response.data));
+}
+let pageNumber = 1;
+let foundMovies = 0;
+let searchText = '';
 
-export const genresList = {};
+const searchForm = document.querySelector('.header__search-form');
+const moviesList = document.querySelector('.covers-container');
+const errorMessage = document.querySelector('.header__error-message');
+searchForm.addEventListener('submit', searchMovies);
 
-const getGenres = async url => {
-  const genresResponse = await axios.get(url);
-  const genresArray = genresResponse.data.genres;
+export async function searchMovies(e) {
+  e.preventDefault();
+  searchText = e.currentTarget.search.value;
+  moviesList.innerHTML = '';
+  if (searchText === '') {
+    return;
+  }
+  pageNumber = 1;
+  const response = await fetchMovies(searchText, pageNumber);
+  foundMovies = response.total_results;
 
-  genresArray.map(genre => {
-    genresList[`${genre['id']}`] = genre.name;
-  });
-
-  return genresList;
-};
-
-const getMovies = async url => {
-  const moviesResponse = await axios.get(url);
-  const moviesArray = moviesResponse.data.results;
-
-  return moviesArray;
-};
-
-const defaultMoviesURL =
-  'https://api.themoviedb.org/3/trending/movie/week?api_key=ac2189c49864b4ab99e8ac3560f99981';
-const TVGenresLink =
-  'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
-const movieGenresLink =
-  'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
-export const APIKey = 'ac2189c49864b4ab99e8ac3560f99981';
-
-const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
-  addSpinner();
-  const movieGenres = await getGenres(movieGenresLink);
-  const TVGenres = await getGenres(TVGenresLink);
-  const moviesList = getMovies(searchURL).then(response => {
-    listBuilder(response);
-  });
-  removeSpinner();
-};
-
-const listBuilder = moviesArray => {
+  if (response.total_results > 0) {
+    Notify.success(`We found ${response.total_results} movies.`);
+    moviesList.innerHTML = '';
+    createSearchList(response.results);
+    errorMessage.classList.add('hidden');
+    return;
+  }
+  if (response.total_results === 0) {
+    moviesList.innerHTML = '';
+    errorMessage.classList.remove('hidden');
+  }
+}
+export const createSearchList = moviesArray => {
   moviesArray.forEach(elem => {
     //Creating container and class for general movie info (cover, title, genres etc.)
     const movieCoverFigure = document.createElement('figure');
@@ -92,7 +91,7 @@ const listBuilder = moviesArray => {
     coverFigcaption.append(movieData);
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(coverFigcaption);
-    moviesContainer.append(movieCoverFigure);
+    moviesList.append(movieCoverFigure);
 
     const movieIDInjection = document.querySelectorAll('[class^=cover_]');
 
@@ -103,7 +102,3 @@ const listBuilder = moviesArray => {
     }
   });
 };
-
-getDataFromAPI();
-
-export { moviesContainer, listBuilder, getMovies, getGenres, getDataFromAPI };
