@@ -1,34 +1,25 @@
 .footer__container {
+  @include font($fw: 400, $fs: 14px, $lh: 16px);
   min-width: 320px;
-  background: #f7f7f7;
   padding-top: 30px;
   padding-bottom: 30px;
-  text-align: center;
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  color: #545454;
+  background: var( --background-footer);
+  color: var(--footer-text);
 }
-
 .footer__logo-svg {
-  fill: #ff6b08;
+  fill: var(--orange-info);
   width: 14px;
   height: 12.75px;
 }
-
 .footer__license {
   padding: 0 66px 10px 66px;
 }
-
 @media (min-width: 768px) {
   .footer__container {
     display: flex;
     justify-content: center;
     gap: 4px;
   }
-
   .footer__license {
     padding: 0;
   }
