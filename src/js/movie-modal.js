@@ -1,6 +1,7 @@
 'use strict';
 
 import { addSpinner, removeSpinner } from './spinner';
+import { moviesContainer } from './movies-list';
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -104,4 +105,8 @@ const fetchDetails = async movieId => {
   return videoDetails;
 };
 
-getMovieDetails(505642); // example of generating modal for a movie by id
+moviesContainer.addEventListener('click', e => {
+  if (e.target.className.includes('cover_')) {
+    getMovieDetails(e.target.id);
+  }
+});
