@@ -26,7 +26,7 @@ const getMovies = async url => {
 };
 
 const defaultMoviesURL =
-  'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981';
+  'https://api.themoviedb.org/3/trending/movie/week?api_key=ac2189c49864b4ab99e8ac3560f99981';
 const TVGenresLink =
   'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
 const movieGenresLink =
@@ -93,6 +93,14 @@ const listBuilder = moviesArray => {
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(coverFigcaption);
     moviesContainer.append(movieCoverFigure);
+
+    const movieIDInjection = document.querySelectorAll('[class^=cover_]');
+
+    for (const tag of movieIDInjection) {
+      if (tag.id === '') {
+        tag.setAttribute('id', elem['id']);
+      }
+    }
   });
 };
 
