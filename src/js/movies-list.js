@@ -1,6 +1,7 @@
 'use strict';
 
 import axios from 'axios';
+import { addSpinner, removeSpinner } from './spinner';
 
 const moviesContainer = document.querySelector('.covers-container');
 
@@ -33,11 +34,13 @@ const movieGenresLink =
 const APIKey = '?api_key=ac2189c49864b4ab99e8ac3560f99981';
 
 const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
+  addSpinner();
   const movieGenres = await getGenres(movieGenresLink);
   const TVGenres = await getGenres(TVGenresLink);
   const moviesList = await getMovies(searchURL).then(response => {
     listBuilder(response);
   });
+  removeSpinner();
 };
 
 const listBuilder = moviesArray => {

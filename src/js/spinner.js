@@ -1,3 +1,5 @@
+'use strict';
+
 const spinner = document.createElement('div');
 spinner.classList.add('spinner');
 
