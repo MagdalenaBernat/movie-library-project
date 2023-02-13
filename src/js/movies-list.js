@@ -7,30 +7,37 @@ const moviesContainer = document.querySelector('.covers-container');
 const genresList = {};
 
 const getGenres = async url => {
-  const response = await axios.get(url);
-  const responseArray = await response.data.genres;
+  const genresResponse = await axios.get(url);
+  const genresArray = await genresResponse.data.genres;
 
-  await responseArray.map(genre => {
+  await genresArray.map(genre => {
     genresList[`${genre['id']}`] = genre.name;
   });
 
   return genresList;
 };
 
-//Getting genres
-getGenres(
-  'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
-).then(
-  getGenres(
-    'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US'
-  )
-);
-
 const getMovies = async url => {
-  const response = await axios.get(url);
-  const moviesArray = await response.data.results;
+  const moviesResponse = await axios.get(url);
+  const moviesArray = await moviesResponse.data.results;
 
   return moviesArray;
+};
+
+const defaultMoviesURL =
+  'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981';
+const TVGenresLink =
+  'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
+const movieGenresLink =
+  'https://api.themoviedb.org/3/genre/movie/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
+const APIKey = '?api_key=ac2189c49864b4ab99e8ac3560f99981';
+
+const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
+  const movieGenres = await getGenres(movieGenresLink);
+  const TVGenres = await getGenres(TVGenresLink);
+  const moviesList = await getMovies(searchURL).then(response => {
+    listBuilder(response);
+  });
 };
 
 const listBuilder = moviesArray => {
@@ -91,10 +98,6 @@ const listBuilder = moviesArray => {
   });
 };
 
-getMovies(
-  'https://api.themoviedb.org/3/trending/all/week?api_key=ac2189c49864b4ab99e8ac3560f99981'
-).then(response => {
-  listBuilder(response);
-});
+getDataFromAPI();
 
-export { listBuilder, getMovies, getGenres };
+export { listBuilder, getMovies, getGenres, getDataFromAPI };
