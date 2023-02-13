@@ -1,8 +1,8 @@
-@import './vars.scss';
-@import './mixin.scss';
-@import './common';
-@import './Elements/movie-card.scss';
+@import './basic/vars.scss';
+@import './basic/mixin.scss';
+@import './basic/common';
+@import './Elements/movies-list.scss';
 @import './Elements/header.scss';
 @import './Elements/spinner';
-@import './footer';
-@import './movie-modal';
+@import './Elements/movie-modal';
+@import './Elements/footer';

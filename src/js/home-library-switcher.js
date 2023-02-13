@@ -13,6 +13,8 @@ const library = document
   .childNodes[3].querySelector('a');
 
 const watchedQueueBntList = document.querySelector('.header__buttons-list');
+const buttonWatched = document.querySelector('.header__list-button-watched');
+const buttonQueue = document.querySelector('.header__list-button-queue');
 const searchInput = document.querySelector('.header__search-form');
 
 home.addEventListener('click', e => {
@@ -28,11 +30,22 @@ home.addEventListener('click', e => {
 
 library.addEventListener('click', e => {
   e.preventDefault();
-
+  buttonWatched.classList.add('header__button--active');
   watchedQueueBntList.classList.remove('hidden');
   searchInput.classList.add('hidden');
   header.classList.add('header--library');
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
   moviesContainer.innerHTML = '';
+});
+
+buttonQueue.addEventListener('click', e => {
+  e.preventDefault();
+  buttonQueue.classList.add('header__button--active');
+  buttonWatched.classList.remove('header__button--active');
+});
+buttonWatched.addEventListener('click', e => {
+  e.preventDefault();
+  buttonWatched.classList.add('header__button--active');
+  buttonQueue.classList.remove('header__button--active');
 });

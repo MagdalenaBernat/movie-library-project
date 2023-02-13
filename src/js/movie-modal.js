@@ -11,7 +11,12 @@ export function renderModal(movie) {
   movieModal.classList.remove('is-hidden');
   const parsedGenres = movie.genres.map(genre => genre.name).join(', ');
 
-  const markup = `<div class="movie-modal__content"><button type="button" class="movie-modal__close-btn">x</button>
+  const markup = `<div class="movie-modal__content"><button type="button" class="movie-modal__close-btn">
+  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 8L22 22" stroke="black" stroke-width="2"/>
+<path d="M8 22L22 8" stroke="black" stroke-width="2"/>
+</svg>
+</button>
 <div class="movie-modal__image-container">
   <img
     class="movie-modal__image"
@@ -23,6 +28,7 @@ export function renderModal(movie) {
 <div class="movie-modal__info-container">
   <div class="movie-modal__movie-info">
     <h2 class="movie-modal__movie-title">${movie.title}</h2>
+    <div class="movie-modal__params">
     <div>
       <span class="movie-modal__movie-rating">Vote / Votes</span>
       <span class="movie-modal__rating-value">${movie.vote_average}</span>
@@ -47,6 +53,7 @@ export function renderModal(movie) {
     <div>
       <span class="movie-modal__movie-genre">Genre</span>
       <span class="movie-modal__genre-value">${parsedGenres}</span>
+    </div>
     </div>
     <div class="movie-modal__about-section">
       <h4>ABOUT</h4>
