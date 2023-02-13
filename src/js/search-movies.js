@@ -19,10 +19,10 @@ const moviesList = document.querySelector('.covers-container');
 const errorMessage = document.querySelector('.header__error-message');
 searchForm.addEventListener('submit', searchMovies);
 
+
 export async function searchMovies(e) {
   e.preventDefault();
   searchText = e.currentTarget.search.value;
-  moviesList.innerHTML = '';
   if (searchText === '') {
     return;
   }
@@ -38,7 +38,6 @@ export async function searchMovies(e) {
     return;
   }
   if (response.total_results === 0) {
-    moviesList.innerHTML = '';
     errorMessage.classList.remove('hidden');
   }
 }

@@ -21,6 +21,9 @@
   max-height: 402px;
   border-radius: 5px;
   contain: content;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .cover__figcaption {
   display: flex;
