@@ -100,4 +100,4 @@ const listBuilder = moviesArray => {
 
 getDataFromAPI();
 
-export { listBuilder, getMovies, getGenres, getDataFromAPI };
+export { moviesContainer, listBuilder, getMovies, getGenres, getDataFromAPI };
