@@ -8,9 +8,9 @@ const genresList = {};
 
 const getGenres = async url => {
   const genresResponse = await axios.get(url);
-  const genresArray = await genresResponse.data.genres;
+  const genresArray = genresResponse.data.genres;
 
-  await genresArray.map(genre => {
+  genresArray.map(genre => {
     genresList[`${genre['id']}`] = genre.name;
   });
 
@@ -19,7 +19,7 @@ const getGenres = async url => {
 
 const getMovies = async url => {
   const moviesResponse = await axios.get(url);
-  const moviesArray = await moviesResponse.data.results;
+  const moviesArray = moviesResponse.data.results;
 
   return moviesArray;
 };
@@ -35,7 +35,7 @@ const APIKey = '?api_key=ac2189c49864b4ab99e8ac3560f99981';
 const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
   const movieGenres = await getGenres(movieGenresLink);
   const TVGenres = await getGenres(TVGenresLink);
-  const moviesList = await getMovies(searchURL).then(response => {
+  const moviesList = getMovies(searchURL).then(response => {
     listBuilder(response);
   });
 };
@@ -64,13 +64,8 @@ const listBuilder = moviesArray => {
     const movieTitle = document.createElement('h3');
     movieTitle.classList.add('cover__figcaption-title');
 
-    if (elem['name']) {
-      movieTitle.innerHTML = elem['name'];
-    } else if (elem['original_name']) {
-      movieTitle.innerHTML = elem['original_name'];
-    } else {
-      movieTitle.innerHTML = elem['original_title'];
-    }
+    movieTitle.innerHTML =
+      elem['name'] || elem['original_name'] || elem['original_title'];
 
     //Tag for movie data (genres, release date)
     const movieData = document.createElement('p');
