@@ -6,12 +6,14 @@ import { moviesContainer } from './movies-list';
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
   const body = document.querySelector('body');
+  const popularity = Math.round(movie.popularity * 10) / 10;
+  const vote_average = Math.round(movie.vote_average * 100) / 100;
 
   movieModal.innerHTML = '';
   movieModal.classList.remove('is-hidden');
   const parsedGenres = movie.genres.map(genre => genre.name).join(', ');
 
-  const markup = `<div class="movie-modal__content"><button type="button" class="movie-modal__close-btn">
+  const markup = `<div class="movie-modal__content modal-center"><button type="button" class="movie-modal__close-btn">
   <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 8L22 22" stroke="black" stroke-width="2"/>
 <path d="M8 22L22 8" stroke="black" stroke-width="2"/>
@@ -31,14 +33,14 @@ export function renderModal(movie) {
     <div class="movie-modal__params">
     <div>
       <span class="movie-modal__movie-rating">Vote / Votes</span>
-      <span class="movie-modal__rating-value">${movie.vote_average}</span>
+      <span class="movie-modal__rating-value">${vote_average}</span>
       /
       <span class="movie-modal__rating-amount">${movie.vote_count}</span>
     </div>
 
     <div>
       <span class="movie-modal__movie-popularity">Popularity</span>
-      <span clas="movie-modal__popularity-value">${movie.popularity}</span>
+      <span clas="movie-modal__popularity-value">${popularity}</span>
     </div>
 
     <div>
@@ -79,8 +81,10 @@ export function renderModal(movie) {
     movieModal.classList.add('is-hidden');
   });
 
-  body.addEventListener('click', () => {
-    movieModal.classList.add('is-hidden');
+  body.addEventListener('click', event => {
+    if (!event.target.closest('.movie-modal__content')) {
+      movieModal.classList.add('is-hidden');
+    }
   });
 
   document.addEventListener('keydown', function escapeKey(event) {
