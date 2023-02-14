@@ -1,7 +1,7 @@
 'use strict';
 
 import { addSpinner, removeSpinner } from './spinner';
-import { moviesContainer } from './movies-list';
+import { APIKey, moviesContainer } from './movies-list';
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -108,7 +108,7 @@ function getMovieDetails(id) {
 const fetchDetails = async movieId => {
   addSpinner();
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=ac2189c49864b4ab99e8ac3560f99981`
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIKey}`
   );
 
   const videoDetails = await response.json();
