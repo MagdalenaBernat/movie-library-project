@@ -81,9 +81,10 @@ export function renderModal(movie) {
     movieModal.classList.add('is-hidden');
   });
 
-  body.addEventListener('click', event => {
+  body.addEventListener('click', function closeModal(event) {
     if (!event.target.closest('.movie-modal__content')) {
       movieModal.classList.add('is-hidden');
+      body.removeEventListener('click', closeModal);
     }
   });
 
