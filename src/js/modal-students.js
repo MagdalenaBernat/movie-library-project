@@ -306,14 +306,15 @@ export function renderStudentsModal() {
     studentsModal.innerHTML = '';
   });
 
-  //   document.body.addEventListener('click', function closeModal(event) {
-  //     if (!event.target.closest('.students-modal__container')) {
-  //       console.log('test2');
-  //       studentsModal.classList.add('is-hidden');
-  //       document.body.removeEventListener('click', closeModal);
-  //       studentsModal.innerHTML = '';
-  //     }
-  //   });
+  const backdrop = document.querySelector('.students-modal__backdrop');
+
+  backdrop.addEventListener('click', function closeModal(event) {
+    if (!event.target.closest('.students-modal__container')) {
+      studentsModal.classList.add('is-hidden');
+      backdrop.removeEventListener('click', closeModal);
+      studentsModal.innerHTML = '';
+    }
+  });
 
   document.addEventListener('keydown', function escapeKey(event) {
     if (event.key === 'Escape') {
