@@ -8,4 +8,11 @@ import {
 import { renderModal } from './js/movie-modal';
 import { home, library } from './js/home-library-switcher';
 import { addSpinner, removeSpinner } from './js/spinner';
-import { createSearchList, searchMovies, fetchMovies} from './js/search-movies';
+import {
+  createSearchList,
+  searchMovies,
+  fetchMovies,
+} from './js/search-movies';
+import {} from './js/load-watched';
+// import { watchedBtn } from './js/add-to-watched';
+import { watchedMoviesArray } from './js/load-watched';

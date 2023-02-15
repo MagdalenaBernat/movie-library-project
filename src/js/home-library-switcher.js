@@ -1,6 +1,8 @@
 'use strict';
 
-import { getDataFromAPI, moviesContainer } from './movies-list';
+import { getDataFromAPI, listBuilder, moviesContainer } from './movies-list';
+import { watchedMoviesArray } from './load-watched';
+import { addSpinner, removeSpinner } from './spinner';
 
 const header = document.querySelector('.header');
 
@@ -19,6 +21,7 @@ const searchInput = document.querySelector('.header__search-form');
 
 home.addEventListener('click', e => {
   e.preventDefault();
+  moviesContainer.innerHTML = '';
 
   watchedQueueBntList.classList.add('hidden');
   searchInput.classList.remove('hidden');
@@ -30,6 +33,7 @@ home.addEventListener('click', e => {
 
 library.addEventListener('click', e => {
   e.preventDefault();
+
   buttonWatched.classList.add('header__button--active');
   watchedQueueBntList.classList.remove('hidden');
   searchInput.classList.add('hidden');
@@ -37,6 +41,7 @@ library.addEventListener('click', e => {
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
   moviesContainer.innerHTML = '';
+  listBuilder(watchedMoviesArray);
 });
 
 buttonQueue.addEventListener('click', e => {
@@ -49,3 +54,5 @@ buttonWatched.addEventListener('click', e => {
   buttonWatched.classList.add('header__button--active');
   buttonQueue.classList.remove('header__button--active');
 });
+
+export { library };

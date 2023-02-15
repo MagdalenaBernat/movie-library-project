@@ -3,6 +3,18 @@
 import { addSpinner, removeSpinner } from './spinner';
 import { moviesContainer } from './movies-list';
 
+let watchedStorage = [];
+
+const stringToNumber = arrayOfStrings => {
+  const arrayOfNumbers = arrayOfStrings.map(Number);
+  return arrayOfNumbers;
+};
+
+if (localStorage.getItem('watchedMovies')) {
+  const localData = localStorage.getItem('watchedMovies').split(',');
+  watchedStorage = stringToNumber(localData);
+}
+
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
   const body = document.querySelector('body');
@@ -94,16 +106,37 @@ export function renderModal(movie) {
       document.removeEventListener('keydown', escapeKey);
     }
   });
-
-  // close modal by clicking on a background to be done
-  // add to watched, add to queue function to be done
-
-  const watchedBtn = document.querySelector('.watched-btn');
-  const queueBtn = document.querySelector('.queue-btn');
 }
 
 function getMovieDetails(id) {
-  fetchDetails(id).then(movieData => renderModal(movieData));
+  fetchDetails(id)
+    .then(movieData => {
+      renderModal(movieData);
+      return movieData.id;
+    })
+    .then(id => {
+      const watchedBtn = document.querySelector('.watched-btn');
+      const queueBtn = document.querySelector('.queue-btn');
+
+      watchedBtn.setAttribute('id', id);
+      queueBtn.setAttribute('id', id);
+
+      if (watchedStorage.includes(id)) {
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+      }
+
+      watchedBtn.addEventListener('click', e => {
+        e.preventDefault();
+        if (watchedStorage.includes(id) !== true) {
+          watchedStorage.push(id);
+          console.log(watchedStorage);
+        }
+
+        localStorage.setItem('watchedMovies', watchedStorage);
+      });
+    });
 }
 
 const fetchDetails = async movieId => {
@@ -122,3 +155,5 @@ moviesContainer.addEventListener('click', e => {
     getMovieDetails(e.target.id);
   }
 });
+
+export { getMovieDetails, fetchDetails, watchedStorage };
