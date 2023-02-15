@@ -1,7 +1,8 @@
 'use strict';
 
 import ghLogo from '../images/github-mark.png';
-import magdalena from '../images/students/profile.jpg';
+import linkeInLogo from '../images/linkedIn_logo.png';
+import magdalena from '../images/students/magdalena.jpg';
 import mateusz from '../images/students/profile.jpg';
 import dominika from '../images/students/profile.jpg';
 import jacek from '../images/students/profile.jpg';
@@ -17,7 +18,7 @@ studentsLink.addEventListener('click', renderStudentsModal);
 export function renderStudentsModal() {
   studentsModal.classList.remove('is-hidden');
   const markup = `
-<div class="students-modal__backdrop">
+  <div class="students-modal__backdrop">
     <div class="students-modal__container">
       <button type="button" class="students-modal__close-btn">
         <svg
@@ -44,17 +45,30 @@ export function renderStudentsModal() {
               <h3 class="students-modal__name">Magdalena</h3>
               <p><span class="students-modal__function">Team leader</span></p>
             </div>
-            <a
-              href="https://github.com/MagdalenaBernat"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              <img
-                src="${ghLogo}"
-                class="students-modal__link-logo"
-                alt="GitHub logo"
-              />
-            </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/in/magdalena-bernat-34a85172/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/MagdalenaBernat"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
           </div>
         </li>
         <li class="students-modal__item">
@@ -68,17 +82,31 @@ export function renderStudentsModal() {
               <h3 class="students-modal__name">Mateusz</h3>
               <p><span class="students-modal__function">Scrum master</span></p>
             </div>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              src="${ghLogo}"
-              class="students-modal__link-logo"
-              alt="GitHub logo"
-            />
-          </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
+          </div>
         </li>
         <li class="students-modal__item">
           <img
@@ -91,17 +119,31 @@ export function renderStudentsModal() {
               <h3 class="students-modal__name">Dominika</h3>
               <p><span class="students-modal__function">Developer</span></p>
             </div>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              src="${ghLogo}"
-              class="students-modal__link-logo"
-              alt="GitHub logo"
-            />
-          </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
+          </div>
         </li>
         <li class="students-modal__item">
           <img
@@ -114,17 +156,31 @@ export function renderStudentsModal() {
               <h3 class="students-modal__name">Jacek</h3>
               <p><span class="students-modal__function">Developer</span></p>
             </div>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              src="${ghLogo}"
-              class="students-modal__link-logo"
-              alt="GitHub logo"
-            />
-          </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
+          </div>
         </li>
         <li class="students-modal__item">
           <img
@@ -137,40 +193,68 @@ export function renderStudentsModal() {
               <h3 class="students-modal__name">Kamil</h3>
               <p><span class="students-modal__function">Developer</span></p>
             </div>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              src="${ghLogo}"
-              class="students-modal__link-logo"
-              alt="GitHub logo"
-            />
-          </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
+          </div>
         </li>
         <li class="students-modal__item">
           <img
             class="students-modal__image"
             src="${krzysztof}"
-            alt="Profile picture of Dominika"
+            alt="Profile picture of Krzysztof"
           />
           <div class="students-modal__description">
             <div>
               <h3 class="students-modal__name">Krzysztof</h3>
               <p><span class="students-modal__function">Developer</span></p>
             </div>
-          <a
-            href="https://github.com/KrzysztofOlejniczak"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              src="${ghLogo}"
-              class="students-modal__link-logo"
-              alt="GitHub logo"
-            />
-          </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/in/krzysztof-olejniczak-0b1629111/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/KrzysztofOlejniczak/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
+          </div>
         </li>
         <li class="students-modal__item">
           <img
@@ -183,17 +267,31 @@ export function renderStudentsModal() {
               <h3 class="students-modal__name">Maciej</h3>
               <p><span class="students-modal__function">Developer</span></p>
             </div>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer noopener"
-          >
-            <img
-              src="${ghLogo}"
-              class="students-modal__link-logo"
-              alt="GitHub logo"
-            />
-          </a>
+            <div class="students-modal__socials">
+              <a
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${linkeInLogo}"
+                  class="students-modal__link-logo"
+                  alt="LinkedIn logo"
+                />
+              </a>
+              <a
+                href="https://github.com/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <img
+                  src="${ghLogo}"
+                  class="students-modal__link-logo"
+                  alt="GitHub logo"
+                />
+              </a>
+            </div>
+          </div>
         </li>
       </ul>
     </div>
