@@ -1,7 +1,7 @@
 'use strict';
 
 import { addSpinner, removeSpinner } from './spinner';
-import { moviesContainer } from './movies-list';
+import { APIKey, moviesContainer } from './movies-list';
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -81,9 +81,10 @@ export function renderModal(movie) {
     movieModal.classList.add('is-hidden');
   });
 
-  body.addEventListener('click', event => {
+  body.addEventListener('click', function closeModal(event) {
     if (!event.target.closest('.movie-modal__content')) {
       movieModal.classList.add('is-hidden');
+      body.removeEventListener('click', closeModal);
     }
   });
 
@@ -93,8 +94,6 @@ export function renderModal(movie) {
       document.removeEventListener('keydown', escapeKey);
     }
   });
-
-  // close modal by clicking on a background to be done
   // add to watched, add to queue function to be done
 
   const watchedBtn = document.querySelector('.watched-btn');
@@ -108,7 +107,7 @@ function getMovieDetails(id) {
 const fetchDetails = async movieId => {
   addSpinner();
   const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=ac2189c49864b4ab99e8ac3560f99981`
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIKey}`
   );
 
   const videoDetails = await response.json();
