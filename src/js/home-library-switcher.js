@@ -1,7 +1,7 @@
 'use strict';
 
 import { getDataFromAPI, listBuilder, moviesContainer } from './movies-list';
-import { watchedMoviesArray, collectMovieDetailsToArray } from './load-watched';
+import { collectMovieDetailsToArray } from './load-watched';
 import { checkingLocalStorage } from './movie-modal';
 
 const header = document.querySelector('.header');

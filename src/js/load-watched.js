@@ -17,4 +17,4 @@ const createMovieArrayFromSingleID = async movieID => {
 };
 
 collectMovieDetailsToArray();
-export { watchedMoviesArray, collectMovieDetailsToArray };
+export { collectMovieDetailsToArray };
