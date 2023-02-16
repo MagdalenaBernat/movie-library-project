@@ -2,6 +2,7 @@
 
 import { addSpinner, removeSpinner } from './spinner';
 import { moviesContainer } from './movies-list';
+import axios from 'axios';
 
 let watchedStorage = [];
 
@@ -9,11 +10,14 @@ const stringToNumber = arrayOfStrings => {
   const arrayOfNumbers = arrayOfStrings.map(Number);
   return arrayOfNumbers;
 };
+const checkingLocalStorage = (type = 'watched') => {
+  if (localStorage.getItem(`${type}Movies`)) {
+    const localData = localStorage.getItem(`${type}Movies`).split(',');
+    watchedStorage = stringToNumber(localData);
+  }
+};
 
-if (localStorage.getItem('watchedMovies')) {
-  const localData = localStorage.getItem('watchedMovies').split(',');
-  watchedStorage = stringToNumber(localData);
-}
+checkingLocalStorage();
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -131,7 +135,6 @@ function getMovieDetails(id) {
         e.preventDefault();
         if (watchedStorage.includes(id) !== true) {
           watchedStorage.push(id);
-          console.log(watchedStorage);
         }
 
         localStorage.setItem('watchedMovies', watchedStorage);
@@ -141,11 +144,11 @@ function getMovieDetails(id) {
 
 const fetchDetails = async movieId => {
   addSpinner();
-  const response = await fetch(
+  const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=ac2189c49864b4ab99e8ac3560f99981`
   );
 
-  const videoDetails = await response.json();
+  const videoDetails = await response.data;
   removeSpinner();
   return videoDetails;
 };
@@ -156,4 +159,4 @@ moviesContainer.addEventListener('click', e => {
   }
 });
 
-export { getMovieDetails, fetchDetails, watchedStorage };
+export { getMovieDetails, fetchDetails, watchedStorage, checkingLocalStorage };

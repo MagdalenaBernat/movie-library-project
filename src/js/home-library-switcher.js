@@ -1,8 +1,8 @@
 'use strict';
 
 import { getDataFromAPI, listBuilder, moviesContainer } from './movies-list';
-import { watchedMoviesArray } from './load-watched';
-import { addSpinner, removeSpinner } from './spinner';
+import { watchedMoviesArray, collectMovieDetailsToArray } from './load-watched';
+import { checkingLocalStorage } from './movie-modal';
 
 const header = document.querySelector('.header');
 
@@ -28,11 +28,14 @@ home.addEventListener('click', e => {
   header.classList.remove('header--library');
   home.classList.add('navigation__list-link--active');
   library.classList.remove('navigation__list-link--active');
+  buttonQueue.classList.remove('header__button--active');
   getDataFromAPI();
 });
 
 library.addEventListener('click', e => {
   e.preventDefault();
+  moviesContainer.innerHTML = '';
+  checkingLocalStorage();
 
   buttonWatched.classList.add('header__button--active');
   watchedQueueBntList.classList.remove('hidden');
@@ -40,7 +43,8 @@ library.addEventListener('click', e => {
   header.classList.add('header--library');
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
-  moviesContainer.innerHTML = '';
+
+  collectMovieDetailsToArray();
   listBuilder(watchedMoviesArray);
 });
 
@@ -49,6 +53,7 @@ buttonQueue.addEventListener('click', e => {
   buttonQueue.classList.add('header__button--active');
   buttonWatched.classList.remove('header__button--active');
 });
+
 buttonWatched.addEventListener('click', e => {
   e.preventDefault();
   buttonWatched.classList.add('header__button--active');

@@ -4,6 +4,12 @@ import { addSpinner, removeSpinner } from './spinner';
 
 let watchedMoviesArray = [];
 
+function collectMovieDetailsToArray() {
+  watchedStorage.forEach(el => {
+    createMovieArrayFromSingleID(el);
+  });
+}
+
 const createMovieArrayFromSingleID = async movieID => {
   addSpinner();
   const movieDetails = await fetchDetails(movieID);
@@ -11,8 +17,5 @@ const createMovieArrayFromSingleID = async movieID => {
   removeSpinner();
 };
 
-watchedStorage.forEach(el => {
-  createMovieArrayFromSingleID(el);
-});
-
-export { watchedMoviesArray };
+collectMovieDetailsToArray();
+export { watchedMoviesArray, collectMovieDetailsToArray };
