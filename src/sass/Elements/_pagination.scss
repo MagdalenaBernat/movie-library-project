@@ -1,0 +1,86 @@
+a:hover {
+  cursor: pointer;
+}
+#pagination {
+  display: flex;
+  height: 150px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  li {
+    color: --black;
+    display: flex;
+    a {
+      background-color: --white;
+      padding: 5px 10px;
+      border-right: 0;
+    }
+  }
+
+  li.active a {
+    background-color: --orange-info;
+    border-radius: 5px;
+  }
+  li:first-child a {
+    background-color: --background-page-button;
+    color: --white;
+    border-radius: 5px;
+  }
+  li:last-child a {
+    background-color: --background-page-button;
+    color: --white;
+    border-radius: 5px;
+  }
+}
+
+li:hover {
+    background-color: --orange-info;
+    color: --white;
+}
+
+
+// .pagination-ui {
+//     display: flex;
+//     justify-content: center;
+// }
+
+// .pageBtn {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 40px;
+//     height: 40px;
+//     font-weight: 500;
+//     font-size: 12px;
+//     line-height: 16px;
+// }
+
+// .pageBtn:hover {
+//     background-color: --orange-info;
+//     border-radius: 5px;
+//     color: --white;
+//     cursor: pointer;
+// }
+
+// .previousBtn {
+//     background-color: --background-page-button;
+// }
+
+// .previousBtn:hover {
+//     cursor: pointer;
+// }
+
+// .nextBtn {
+//     background-color: --background-page-button;
+// }
+
+// .nextBtn:hover {
+//     cursor: pointer;
+// }
+
