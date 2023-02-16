@@ -8,8 +8,6 @@
     right: 0;
     bottom: 0;
     z-index: 10;
-    overflow-y: auto;
-    overflow-x: hidden;
     transition-property: visibility, opacity;
     transition-duration: 300ms;
     transition-timing-function: linear;
@@ -19,6 +17,7 @@
     width: 85%;
     min-width: 280px;
     max-width: 440px;
+    max-height: 90%;
     height: auto;
     background-color: var(--white);
     text-align: center;
@@ -27,6 +26,8 @@
       0px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     margin: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 999;
   }
   &__close-btn {
