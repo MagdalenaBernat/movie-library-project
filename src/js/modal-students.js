@@ -8,7 +8,7 @@ import dominika from '../images/students/profile.jpg';
 import jacek from '../images/students/profile.jpg';
 import kamil from '../images/students/profile.jpg';
 import krzysztof from '../images/students/krzysztof.jpg';
-import maciej from '../images/students/profile.jpg';
+import maciej from '../images/students/maciej.jpg';
 
 const studentsModal = document.querySelector('.students-modal');
 const studentsLink = document.querySelector('.footer__link');
@@ -269,7 +269,7 @@ export function renderStudentsModal() {
             </div>
             <div class="students-modal__socials">
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/maciej-%C5%9Bwiszcz-51297023b/"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -280,7 +280,7 @@ export function renderStudentsModal() {
                 />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/bomblito11"
                 target="_blank"
                 rel="noreferrer noopener"
               >
