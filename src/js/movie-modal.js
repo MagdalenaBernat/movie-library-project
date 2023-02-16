@@ -94,8 +94,6 @@ export function renderModal(movie) {
       document.removeEventListener('keydown', escapeKey);
     }
   });
-
-  // close modal by clicking on a background to be done
   // add to watched, add to queue function to be done
 
   const watchedBtn = document.querySelector('.watched-btn');

@@ -16,7 +16,7 @@
     text-align: left;
     min-width: 280px;
     max-width: 440px;
-    height: auto;
+    height: 90%;
     margin: 0 auto;
     border-radius: 4px;
     background-color: var(--white);
@@ -27,6 +27,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 48px 20px 20px 20px;
+    overflow-y: auto;
   }
 
   &__close-btn {
@@ -152,6 +153,8 @@
       flex-direction: row;
       align-items: flex-start;
       padding: 50px 30px 30px 30px;
+      height: auto;
+      overflow: hidden;
     }
     &__image-container {
       min-width: 264px;
