@@ -58,6 +58,11 @@
     justify-content: center;
     gap: 30px;
   }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
   &__image {
     width: 240px;
     height: auto;
