@@ -44,8 +44,8 @@ library.addEventListener('click', e => {
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
 
-  collectMovieDetailsToArray();
-  listBuilder(watchedMoviesArray);
+  const watchedMoviesPromises = collectMovieDetailsToArray();
+  watchedMoviesPromises.then(resolve => listBuilder(resolve));
 });
 
 buttonQueue.addEventListener('click', e => {

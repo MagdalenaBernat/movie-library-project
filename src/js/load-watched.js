@@ -2,19 +2,18 @@
 import { fetchDetails, watchedStorage } from './movie-modal';
 import { addSpinner, removeSpinner } from './spinner';
 
-let watchedMoviesArray = [];
-
 function collectMovieDetailsToArray() {
-  watchedStorage.forEach(el => {
-    createMovieArrayFromSingleID(el);
+  const watchedMoviesPromises = watchedStorage.map(async el => {
+    return await createMovieArrayFromSingleID(el);
   });
+  return Promise.all(watchedMoviesPromises);
 }
 
 const createMovieArrayFromSingleID = async movieID => {
   addSpinner();
   const movieDetails = await fetchDetails(movieID);
-  watchedMoviesArray.push(movieDetails);
   removeSpinner();
+  return movieDetails;
 };
 
 collectMovieDetailsToArray();
