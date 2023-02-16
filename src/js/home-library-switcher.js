@@ -1,8 +1,14 @@
 'use strict';
 
 import { getDataFromAPI, listBuilder, moviesContainer } from './movies-list';
-import { collectMovieDetailsToArray } from './load-watched';
-import { checkingLocalStorage } from './movie-modal';
+import {
+  collectMovieDetailsToWatchedArray,
+  collectMovieDetailsToQueuedArray,
+} from './load-watched';
+import {
+  checkingLocalStorageForQueued,
+  checkingLocalStorageForWatched,
+} from './movie-modal';
 
 const header = document.querySelector('.header');
 
@@ -29,13 +35,14 @@ home.addEventListener('click', e => {
   home.classList.add('navigation__list-link--active');
   library.classList.remove('navigation__list-link--active');
   buttonQueue.classList.remove('header__button--active');
+
   getDataFromAPI();
 });
 
 library.addEventListener('click', e => {
   e.preventDefault();
   moviesContainer.innerHTML = '';
-  checkingLocalStorage();
+  checkingLocalStorageForWatched();
 
   buttonWatched.classList.add('header__button--active');
   watchedQueueBntList.classList.remove('hidden');
@@ -44,20 +51,32 @@ library.addEventListener('click', e => {
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
 
-  const watchedMoviesPromises = collectMovieDetailsToArray();
+  const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
   watchedMoviesPromises.then(resolve => listBuilder(resolve));
 });
 
 buttonQueue.addEventListener('click', e => {
   e.preventDefault();
+  moviesContainer.innerHTML = '';
+  checkingLocalStorageForQueued();
+
   buttonQueue.classList.add('header__button--active');
   buttonWatched.classList.remove('header__button--active');
+
+  const queuedMoviesPromises = collectMovieDetailsToQueuedArray();
+  queuedMoviesPromises.then(resolve => listBuilder(resolve));
 });
 
 buttonWatched.addEventListener('click', e => {
   e.preventDefault();
+  moviesContainer.innerHTML = '';
+  checkingLocalStorageForWatched();
+
   buttonWatched.classList.add('header__button--active');
   buttonQueue.classList.remove('header__button--active');
+
+  const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
+  watchedMoviesPromises.then(resolve => listBuilder(resolve));
 });
 
 export { library };

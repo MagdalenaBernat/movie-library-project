@@ -5,19 +5,28 @@ import { moviesContainer } from './movies-list';
 import axios from 'axios';
 
 let watchedStorage = [];
+let queuedStorage = [];
 
 const stringToNumber = arrayOfStrings => {
   const arrayOfNumbers = arrayOfStrings.map(Number);
   return arrayOfNumbers;
 };
-const checkingLocalStorage = (type = 'watched') => {
+const checkingLocalStorageForWatched = (type = 'watched') => {
   if (localStorage.getItem(`${type}Movies`)) {
     const localData = localStorage.getItem(`${type}Movies`).split(',');
     watchedStorage = stringToNumber(localData);
   }
 };
 
-checkingLocalStorage();
+const checkingLocalStorageForQueued = (type = 'queued') => {
+  if (localStorage.getItem(`${type}Movies`)) {
+    const localData = localStorage.getItem(`${type}Movies`).split(',');
+    queuedStorage = stringToNumber(localData);
+  }
+};
+
+checkingLocalStorageForWatched();
+checkingLocalStorageForQueued();
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -131,6 +140,12 @@ function getMovieDetails(id) {
         watchedBtn.style.cursor = 'not-allowed';
       }
 
+      if (queuedStorage.includes(id)) {
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+      }
+
       watchedBtn.addEventListener('click', e => {
         e.preventDefault();
         if (watchedStorage.includes(id) !== true) {
@@ -138,6 +153,15 @@ function getMovieDetails(id) {
         }
 
         localStorage.setItem('watchedMovies', watchedStorage);
+      });
+
+      queueBtn.addEventListener('click', e => {
+        e.preventDefault();
+        if (queuedStorage.includes(id) !== true) {
+          queuedStorage.push(id);
+        }
+
+        localStorage.setItem('queuedMovies', queuedStorage);
       });
     });
 }
@@ -159,4 +183,11 @@ moviesContainer.addEventListener('click', e => {
   }
 });
 
-export { getMovieDetails, fetchDetails, watchedStorage, checkingLocalStorage };
+export {
+  getMovieDetails,
+  fetchDetails,
+  watchedStorage,
+  checkingLocalStorageForWatched,
+  queuedStorage,
+  checkingLocalStorageForQueued,
+};

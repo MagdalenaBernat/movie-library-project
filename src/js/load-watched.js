@@ -1,12 +1,19 @@
 'use strict';
-import { fetchDetails, watchedStorage } from './movie-modal';
+import { fetchDetails, watchedStorage, queuedStorage } from './movie-modal';
 import { addSpinner, removeSpinner } from './spinner';
 
-function collectMovieDetailsToArray() {
+function collectMovieDetailsToWatchedArray() {
   const watchedMoviesPromises = watchedStorage.map(async el => {
     return await createMovieArrayFromSingleID(el);
   });
   return Promise.all(watchedMoviesPromises);
+}
+
+function collectMovieDetailsToQueuedArray() {
+  const queuedMoviesPromises = queuedStorage.map(async el => {
+    return await createMovieArrayFromSingleID(el);
+  });
+  return Promise.all(queuedMoviesPromises);
 }
 
 const createMovieArrayFromSingleID = async movieID => {
@@ -16,5 +23,6 @@ const createMovieArrayFromSingleID = async movieID => {
   return movieDetails;
 };
 
-collectMovieDetailsToArray();
-export { collectMovieDetailsToArray };
+collectMovieDetailsToWatchedArray();
+collectMovieDetailsToQueuedArray();
+export { collectMovieDetailsToWatchedArray, collectMovieDetailsToQueuedArray };
