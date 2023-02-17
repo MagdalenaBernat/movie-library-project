@@ -1,3 +1,5 @@
+'use strict';
+
 import axios from 'axios';
 import { Notify } from 'notiflix';
 import { genresList, APIKey } from './movies-list';

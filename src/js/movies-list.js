@@ -49,6 +49,11 @@ const listBuilder = moviesArray => {
     const movieCoverFigure = document.createElement('figure');
     movieCoverFigure.classList.add('cover__container');
 
+    //Creating more details label
+    const moreDetailsLabel = document.createElement('span');
+    moreDetailsLabel.classList.add('cover__label');
+    moreDetailsLabel.innerHTML = `Click for more details`;
+
     //Creating img tag for movie cover
     const coverImg = document.createElement('img');
     coverImg.classList.add('cover__image');
@@ -90,7 +95,9 @@ const listBuilder = moviesArray => {
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);
+
     movieCoverFigure.append(coverImg);
+    movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
     moviesContainer.append(movieCoverFigure);
 

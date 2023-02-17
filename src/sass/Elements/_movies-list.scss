@@ -15,6 +15,20 @@
   margin: 20px;
   width: 280px;
   height: 443px;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+
+    .cover__label {
+      opacity: 1;
+      margin: 0;
+    }
+
+    .cover__image {
+      filter: brightness(60%);
+    }
+  }
 }
 .cover__image {
   width: 100%;
@@ -25,6 +39,19 @@
     cursor: pointer;
   }
 }
+
+.cover__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.4s ease;
+  @include font($fw: 500, $tt: uppercase, $fs: 25px, $lh: 35px, $tal: center);
+  color: var(--white);
+}
+
 .cover__figcaption {
   display: flex;
   justify-content: center;
