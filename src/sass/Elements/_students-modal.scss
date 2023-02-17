@@ -1,0 +1,121 @@
+.students-modal {
+  &__backdrop {
+    display: flex;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.2);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    transition-property: visibility, opacity;
+    transition-duration: 300ms;
+    transition-timing-function: linear;
+  }
+  &__container {
+    position: relative;
+    width: 85%;
+    min-width: 280px;
+    max-width: 440px;
+    max-height: 90%;
+    height: auto;
+    background-color: var(--white);
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+      0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 999;
+  }
+  &__close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--white);
+    border: none;
+    cursor: pointer;
+  }
+  &__title {
+    @include font($fw: 500, $fs: 20px, $lh: 35px, $tt: uppercase);
+    color: var(--black);
+    padding-bottom: 20px;
+    &::before {
+      content: '';
+      display: block;
+      background-image: url(../images/logo.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+      height: 30px;
+    }
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+  &__image {
+    width: 240px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+      0px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  &__description {
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__name {
+    @include font($fw: 500, $fs: 16px, $lh: 24px);
+  }
+  &__function {
+    line-height: 14px;
+    color: var(--white);
+    background: var(--orange-info);
+    padding: 1px 9px;
+    border-radius: 5px;
+  }
+  &__socials {
+    display: flex;
+    gap: 10px;
+  }
+  &__link-logo {
+    width: 40px;
+    padding-top: 5px;
+    margin: auto;
+  }
+}
+@media (min-width: 768px) {
+  .students-modal {
+    &__container {
+      max-width: 880px;
+      padding: 50px 30px 30px 30px;
+    }
+
+    &__title {
+      font-size: 30px;
+      &::before {
+        height: 30px;
+      }
+    }
+  }
+}
+@media (min-width: 1024px) {
+  .students-modal {
+    &__container {
+      max-width: 1200px;
+      padding-bottom: 40px;
+    }
+  }
+}

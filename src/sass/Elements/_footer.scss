@@ -1,18 +1,24 @@
-.footer__container {
-  @include font($fw: 400, $fs: 14px, $lh: 16px);
-  min-width: 320px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  background: var( --background-footer);
-  color: var(--footer-text);
-}
-.footer__logo-svg {
-  fill: var(--orange-info);
-  width: 14px;
-  height: 12.75px;
-}
-.footer__license {
-  padding: 0 66px 10px 66px;
+.footer {
+  &__container {
+    @include font($fw: 400, $fs: 14px, $lh: 16px);
+    min-width: 320px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: var(--background-footer);
+    color: var(--footer-text);
+  }
+  &__logo-svg {
+    fill: var(--orange-info);
+    width: 14px;
+    height: 12.75px;
+  }
+  &__license {
+    padding: 0 66px 10px 66px;
+  }
+  &__link {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 @media (min-width: 768px) {
   .footer__container {
