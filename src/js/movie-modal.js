@@ -3,6 +3,7 @@
 import { addSpinner, removeSpinner } from './spinner';
 import { moviesContainer } from './movies-list';
 import axios from 'axios';
+import { Notify } from 'notiflix';
 
 let watchedStorage = [];
 let queuedStorage = [];
@@ -11,6 +12,7 @@ const stringToNumber = arrayOfStrings => {
   const arrayOfNumbers = arrayOfStrings.map(Number);
   return arrayOfNumbers;
 };
+
 const checkingLocalStorageForWatched = (type = 'watched') => {
   if (localStorage.getItem(`${type}Movies`)) {
     const localData = localStorage.getItem(`${type}Movies`).split(',');
@@ -140,7 +142,7 @@ function getMovieDetails(id) {
         watchedBtn.style.cursor = 'not-allowed';
       }
 
-      if (queuedStorage.includes(id)) {
+      if (queuedStorage.includes(id) || watchedStorage.includes(id)) {
         queueBtn.disabled = true;
         queueBtn.style.background = 'gray';
         queueBtn.style.cursor = 'not-allowed';
@@ -153,6 +155,25 @@ function getMovieDetails(id) {
         }
 
         localStorage.setItem('watchedMovies', watchedStorage);
+
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+
+        if (queuedStorage.includes(id)) {
+          const indexOfID = queuedStorage.indexOf(id);
+          console.log(indexOfID);
+          console.log(queuedStorage.splice(indexOfID, 1).join());
+          localStorage.setItem(
+            'queuedMovies',
+            queuedStorage.splice(indexOfID, 1).join()
+          );
+        }
+
+        Notify.success('Movie added to watched library');
       });
 
       queueBtn.addEventListener('click', e => {
@@ -162,6 +183,11 @@ function getMovieDetails(id) {
         }
 
         localStorage.setItem('queuedMovies', queuedStorage);
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+
+        Notify.success('Movie added to queue');
       });
     });
 }

@@ -14,5 +14,4 @@ import {
   fetchMovies,
 } from './js/search-movies';
 import {} from './js/load-watched';
-// import { watchedBtn } from './js/add-to-watched';
 import { watchedMoviesArray } from './js/load-watched';
