@@ -1,86 +1,43 @@
-a:hover {
-  cursor: pointer;
-}
-#pagination {
+.pagination ul{
   display: flex;
-  height: 150px;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  height: 150px;
+  padding: 10px;
 }
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.pagination ul li{
   display: flex;
-  li {
-    color: --black;
-    display: flex;
-    a {
-      background-color: --white;
-      padding: 5px 10px;
-      border-right: 0;
-    }
-  }
-
-  li.active a {
-    background-color: --orange-info;
-    border-radius: 5px;
-  }
-  li:first-child a {
-    background-color: --background-page-button;
-    color: --white;
-    border-radius: 5px;
-  }
-  li:last-child a {
-    background-color: --background-page-button;
-    color: --white;
-    border-radius: 5px;
-  }
+  list-style: none;
+  line-height: 40px;
+  text-align: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  margin: 0 2px;
+  transition: all 0.3s ease;
 }
-
-li:hover {
-    background-color: --orange-info;
-    color: --white;
+.pagination ul li.pageNumber{
+  text-align: center; 
 }
-
-
-// .pagination-ui {
-//     display: flex;
-//     justify-content: center;
-// }
-
-// .pageBtn {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: 40px;
-//     height: 40px;
-//     font-weight: 500;
-//     font-size: 12px;
-//     line-height: 16px;
-// }
-
-// .pageBtn:hover {
-//     background-color: --orange-info;
-//     border-radius: 5px;
-//     color: --white;
-//     cursor: pointer;
-// }
-
-// .previousBtn {
-//     background-color: --background-page-button;
-// }
-
-// .previousBtn:hover {
-//     cursor: pointer;
-// }
-
-// .nextBtn {
-//     background-color: --background-page-button;
-// }
-
-// .nextBtn:hover {
-//     cursor: pointer;
-// }
-
+.pagination ul li.dots{
+  text-align: center; 
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: default;
+}
+.pagination ul li.btn{
+  background-color: #f7f7f7;
+  justify-content: center;
+  border-radius: 5px;
+}
+.pagination ul li.active,
+.pagination ul li.pageNumber:hover,
+.pagination ul li.btn:hover{
+  background-color: #FF6B08;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
