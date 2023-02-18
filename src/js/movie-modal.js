@@ -2,7 +2,37 @@
 
 import { addSpinner, removeSpinner } from './spinner';
 import { APIKey, moviesContainer } from './movies-list';
+
+import axios from 'axios';
+import { Notify } from 'notiflix';
+
+let watchedStorage = [];
+let queuedStorage = [];
+
+const stringToNumber = arrayOfStrings => {
+  const arrayOfNumbers = arrayOfStrings.map(Number);
+  return arrayOfNumbers;
+};
+
+const checkingLocalStorageForWatched = (type = 'watched') => {
+  if (localStorage.getItem(`${type}Movies`)) {
+    const localData = localStorage.getItem(`${type}Movies`).split(',');
+    watchedStorage = stringToNumber(localData);
+  }
+};
+
+const checkingLocalStorageForQueued = (type = 'queued') => {
+  if (localStorage.getItem(`${type}Movies`)) {
+    const localData = localStorage.getItem(`${type}Movies`).split(',');
+    queuedStorage = stringToNumber(localData);
+  }
+};
+
+checkingLocalStorageForWatched();
+checkingLocalStorageForQueued();
+
 import noImage from '../images/no-image.png';
+
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -100,15 +130,75 @@ export function renderModal(movie) {
       document.removeEventListener('keydown', escapeKey);
     }
   });
-  // add to watched, add to queue function to be done
-
-  const watchedBtn = document.querySelector('.watched-btn');
-  const queueBtn = document.querySelector('.queue-btn');
-  
 }
 
 function getMovieDetails(id) {
-  fetchDetails(id).then(movieData => renderModal(movieData));
+  fetchDetails(id)
+    .then(movieData => {
+      renderModal(movieData);
+      return movieData.id;
+    })
+    .then(id => {
+      const watchedBtn = document.querySelector('.watched-btn');
+      const queueBtn = document.querySelector('.queue-btn');
+
+      watchedBtn.setAttribute('id', id);
+      queueBtn.setAttribute('id', id);
+
+      if (watchedStorage.includes(id)) {
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+      }
+
+      if (queuedStorage.includes(id) || watchedStorage.includes(id)) {
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+      }
+
+      watchedBtn.addEventListener('click', e => {
+        e.preventDefault();
+        if (watchedStorage.includes(id) !== true) {
+          watchedStorage.push(id);
+        }
+
+        localStorage.setItem('watchedMovies', watchedStorage);
+
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+
+        if (queuedStorage.includes(id)) {
+          const indexOfID = queuedStorage.indexOf(id);
+          console.log(indexOfID);
+          console.log(queuedStorage.splice(indexOfID, 1).join());
+          localStorage.setItem(
+            'queuedMovies',
+            queuedStorage.splice(indexOfID, 1).join()
+          );
+        }
+
+        Notify.success('Movie added to watched library');
+      });
+
+      queueBtn.addEventListener('click', e => {
+        e.preventDefault();
+        if (queuedStorage.includes(id) !== true) {
+          queuedStorage.push(id);
+        }
+
+        localStorage.setItem('queuedMovies', queuedStorage);
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+
+        Notify.success('Movie added to queue');
+      });
+    });
 }
 const fetchDetails = async movieId => {
   addSpinner();
@@ -116,7 +206,7 @@ const fetchDetails = async movieId => {
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIKey}`
   );
 
-  const videoDetails = await response.json();
+  const videoDetails = await response;
   removeSpinner();
   return videoDetails;
 };
@@ -126,3 +216,12 @@ moviesContainer.addEventListener('click', e => {
     getMovieDetails(e.target.id);
   }
 });
+
+export {
+  getMovieDetails,
+  fetchDetails,
+  watchedStorage,
+  checkingLocalStorageForWatched,
+  queuedStorage,
+  checkingLocalStorageForQueued,
+};

@@ -86,8 +86,14 @@ const listBuilder = moviesArray => {
 
     const movieGenresArray = [];
 
-    for (const id of elem['genre_ids']) {
-      movieGenresArray.push(genresList[`${id}`]);
+    if (elem['genre_ids']) {
+      for (const id of elem['genre_ids']) {
+        movieGenresArray.push(genresList[`${id}`]);
+      }
+    } else {
+      elem['genres'].forEach(e => {
+        movieGenresArray.push(genresList[`${e['id']}`]);
+      });
     }
 
     const releaseDate = new Date(
