@@ -33,7 +33,6 @@ checkingLocalStorageForQueued();
 
 import noImage from '../images/no-image.png';
 
-
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
   const body = document.querySelector('body');
@@ -43,7 +42,7 @@ export function renderModal(movie) {
   movieModal.innerHTML = '';
   movieModal.classList.remove('is-hidden');
   const parsedGenres = movie.genres.map(genre => genre.name).join(', ');
-  
+
   const markup = `<div class="movie-modal__content modal-center"><button type="button" class="movie-modal__close-btn">
   <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 8L22 22" stroke="black" stroke-width="2"/>
@@ -103,11 +102,10 @@ export function renderModal(movie) {
   </div>
 </div>
   </div>`;
-  
-  
+
   movieModal.innerHTML = markup;
   const posterSrc = document.querySelector('.movie-modal__image');
-  if (posterSrc.getAttribute('src') === "https://image.tmdb.org/t/p/w500null") {
+  if (posterSrc.getAttribute('src') === 'https://image.tmdb.org/t/p/w500null') {
     posterSrc.setAttribute('src', `${noImage}`);
     posterSrc.setAttribute('alt', `no poster found`);
   }
@@ -134,6 +132,9 @@ export function renderModal(movie) {
 
 function getMovieDetails(id) {
   fetchDetails(id)
+    .then(response => {
+      return response.json();
+    })
     .then(movieData => {
       renderModal(movieData);
       return movieData.id;
