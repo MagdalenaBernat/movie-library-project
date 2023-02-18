@@ -2,7 +2,6 @@
 
 import { addSpinner, removeSpinner } from './spinner';
 import { APIKey, moviesContainer } from './movies-list';
-
 import axios from 'axios';
 import { Notify } from 'notiflix';
 
@@ -150,29 +149,29 @@ function getMovieDetails(id) {
         watchedBtn.disabled = true;
         watchedBtn.style.background = 'gray';
         watchedBtn.style.cursor = 'not-allowed';
+        watchedBtn.innerHTML = 'Watched';
+        queueBtn.disabled = false;
+        queueBtn.style.background = 'white';
+        queueBtn.style.cursor = 'pointer';
+        queueBtn.innerHTML = 'Add to queue';
       }
-
-      if (queuedStorage.includes(id) || watchedStorage.includes(id)) {
+      if (queuedStorage.includes(id)) {
         queueBtn.disabled = true;
         queueBtn.style.background = 'gray';
         queueBtn.style.cursor = 'not-allowed';
+        queueBtn.innerHTML = 'Queued';
+        watchedBtn.disabled = false;
+        watchedBtn.style.background = 'var(--button-orange)';
+        watchedBtn.style.cursor = 'pointer';
+        watchedBtn.innerHTML = 'Add to watched';
       }
 
       watchedBtn.addEventListener('click', e => {
         e.preventDefault();
         if (watchedStorage.includes(id) !== true) {
           watchedStorage.push(id);
+          console.log("added" + id);
         }
-
-        localStorage.setItem('watchedMovies', watchedStorage);
-
-        watchedBtn.disabled = true;
-        watchedBtn.style.background = 'gray';
-        watchedBtn.style.cursor = 'not-allowed';
-        queueBtn.disabled = true;
-        queueBtn.style.background = 'gray';
-        queueBtn.style.cursor = 'not-allowed';
-
         if (queuedStorage.includes(id)) {
           const indexOfID = queuedStorage.indexOf(id);
           console.log(indexOfID);
@@ -181,7 +180,16 @@ function getMovieDetails(id) {
             'queuedMovies',
             queuedStorage.splice(indexOfID, 1).join()
           );
+          console.log('removed' + id);
         }
+        localStorage.setItem('watchedMovies', watchedStorage);
+        localStorage.setItem('queuedMovies', queuedStorage);
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+        queueBtn.disabled = false;
+        queueBtn.style.background = 'var(--white)';
+        queueBtn.style.cursor = 'pointer';
 
         Notify.success('Movie added to watched library');
       });
@@ -190,12 +198,26 @@ function getMovieDetails(id) {
         e.preventDefault();
         if (queuedStorage.includes(id) !== true) {
           queuedStorage.push(id);
+          console.log("added" + id);
         }
-
+        if (watchedStorage.includes(id)) {
+          const indexOfID = watchedStorage.indexOf(id);
+          console.log(indexOfID);
+          console.log(watchedStorage.splice(indexOfID, 1).join());
+          localStorage.setItem(
+            'watchedMovies',
+            watchedStorage.splice(indexOfID, 1).join()
+            );
+            console.log('removed' + id);
+        }
+        localStorage.setItem('watchedMovies', watchedStorage);
         localStorage.setItem('queuedMovies', queuedStorage);
         queueBtn.disabled = true;
         queueBtn.style.background = 'gray';
         queueBtn.style.cursor = 'not-allowed';
+        watchedBtn.disabled = false;
+        watchedBtn.style.background = 'var(--button-orange)';
+        watchedBtn.style.cursor = 'pointer';
 
         Notify.success('Movie added to queue');
       });
@@ -203,11 +225,11 @@ function getMovieDetails(id) {
 }
 const fetchDetails = async movieId => {
   addSpinner();
-  const response = await fetch(
+  const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIKey}`
   );
 
-  const videoDetails = await response;
+  const videoDetails = await response.data;
   removeSpinner();
   return videoDetails;
 };
