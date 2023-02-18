@@ -34,6 +34,7 @@ const movieGenresLink =
 export const APIKey = 'ac2189c49864b4ab99e8ac3560f99981';
 
 const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
+  moviesContainer.innerHTML = "";
   addSpinner();
   const movieGenres = await getGenres(movieGenresLink);
   const TVGenres = await getGenres(TVGenresLink);
