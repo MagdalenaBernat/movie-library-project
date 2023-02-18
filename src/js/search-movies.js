@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { Notify } from 'notiflix';
 import { genresList, APIKey } from './movies-list';
+import noImage from '../images/no-image.png';
 
 export async function fetchMovies(title, page) {
   return await axios
@@ -21,10 +22,10 @@ const moviesList = document.querySelector('.covers-container');
 const errorMessage = document.querySelector('.header__error-message');
 searchForm.addEventListener('submit', searchMovies);
 
+
 export async function searchMovies(e) {
   e.preventDefault();
   searchText = e.currentTarget.search.value;
-  moviesList.innerHTML = '';
   if (searchText === '') {
     return;
   }
@@ -40,10 +41,10 @@ export async function searchMovies(e) {
     return;
   }
   if (response.total_results === 0) {
-    moviesList.innerHTML = '';
     errorMessage.classList.remove('hidden');
   }
 }
+
 export const createSearchList = moviesArray => {
   moviesArray.forEach(elem => {
     //Creating container and class for general movie info (cover, title, genres etc.)
@@ -59,7 +60,18 @@ export const createSearchList = moviesArray => {
     );
     coverImg.setAttribute('alt', elem['original_title']);
     coverImg.setAttribute('loading', 'lazy');
-
+    
+    imgAtrribute = coverImg.getAttribute('src');
+      if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
+        coverImg.setAttribute(
+          'src',
+          `${noImage}`
+        );
+        coverImg.setAttribute(
+          'alt',
+          `no poster found`
+        );
+      }
     //Creating figcaption (container for title, genres etc.)
     const coverFigcaption = document.createElement('figcaption');
     coverFigcaption.classList.add('cover__figcaption');
