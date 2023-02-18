@@ -131,9 +131,7 @@ export function renderModal(movie) {
 
 function getMovieDetails(id) {
   fetchDetails(id)
-    .then(response => {
-      return response.json();
-    })
+    
     .then(movieData => {
       renderModal(movieData);
       return movieData.id;
