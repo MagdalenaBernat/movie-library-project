@@ -61,7 +61,7 @@ export const createSearchList = moviesArray => {
     coverImg.setAttribute('alt', elem['original_title']);
     coverImg.setAttribute('loading', 'lazy');
     
-    imgAtrribute = coverImg.getAttribute('src');
+    const imgAtrribute = coverImg.getAttribute('src');
       if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
         coverImg.setAttribute(
           'src',
