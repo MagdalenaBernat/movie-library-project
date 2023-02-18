@@ -63,7 +63,11 @@ const listBuilder = moviesArray => {
     );
     coverImg.setAttribute('alt', elem['original_title']);
     coverImg.setAttribute('loading', 'lazy');
-
+    const imgAtrribute = coverImg.getAttribute('src');
+    if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
+      coverImg.setAttribute('src', `${noImage}`);
+      coverImg.setAttribute('alt', `no poster found`);
+    }
     //Creating figcaption (container for title, genres etc.)
     const coverFigcaption = document.createElement('figcaption');
     coverFigcaption.classList.add('cover__figcaption');

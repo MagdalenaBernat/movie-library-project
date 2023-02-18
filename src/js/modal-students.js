@@ -5,7 +5,7 @@ import linkeInLogo from '../images/linkedIn_logo.png';
 import magdalena from '../images/students/magdalena.jpg';
 import mateusz from '../images/students/profile.jpg';
 import dominika from '../images/students/profile.jpg';
-import jacek from '../images/students/profile.jpg';
+import jacek from '../images/students/jacek.jpg';
 import kamil from '../images/students/profile.jpg';
 import krzysztof from '../images/students/krzysztof.jpg';
 import maciej from '../images/students/maciej.jpg';
@@ -158,7 +158,7 @@ export function renderStudentsModal() {
             </div>
             <div class="students-modal__socials">
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/jacek-w%C3%B3jciak-230a33266/"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -169,7 +169,7 @@ export function renderStudentsModal() {
                 />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/frbanka"
                 target="_blank"
                 rel="noreferrer noopener"
               >
