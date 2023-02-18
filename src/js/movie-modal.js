@@ -2,6 +2,7 @@
 
 import { addSpinner, removeSpinner } from './spinner';
 import { APIKey, moviesContainer } from './movies-list';
+import noImage from '../images/no-image.png';
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -12,7 +13,7 @@ export function renderModal(movie) {
   movieModal.innerHTML = '';
   movieModal.classList.remove('is-hidden');
   const parsedGenres = movie.genres.map(genre => genre.name).join(', ');
-
+  
   const markup = `<div class="movie-modal__content modal-center"><button type="button" class="movie-modal__close-btn">
   <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 8L22 22" stroke="black" stroke-width="2"/>
@@ -23,7 +24,7 @@ export function renderModal(movie) {
   <img
     class="movie-modal__image"
     src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
-    alt="example image"
+    alt="${movie.original_title}"
     loading="lazy"
   />
 </div>
@@ -72,9 +73,14 @@ export function renderModal(movie) {
   </div>
 </div>
   </div>`;
-
+  
+  
   movieModal.innerHTML = markup;
-
+  const posterSrc = document.querySelector('.movie-modal__image');
+  if (posterSrc.getAttribute('src') === "https://image.tmdb.org/t/p/w500null") {
+    posterSrc.setAttribute('src', `${noImage}`);
+    posterSrc.setAttribute('alt', `no poster found`);
+  }
   const closeBtn = document.querySelector('.movie-modal__close-btn');
 
   closeBtn.addEventListener('click', () => {
@@ -98,12 +104,12 @@ export function renderModal(movie) {
 
   const watchedBtn = document.querySelector('.watched-btn');
   const queueBtn = document.querySelector('.queue-btn');
+  
 }
 
 function getMovieDetails(id) {
   fetchDetails(id).then(movieData => renderModal(movieData));
 }
-
 const fetchDetails = async movieId => {
   addSpinner();
   const response = await fetch(
