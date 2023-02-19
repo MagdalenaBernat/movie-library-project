@@ -131,7 +131,6 @@ export function renderModal(movie) {
 
 function getMovieDetails(id) {
   fetchDetails(id)
-    
     .then(movieData => {
       renderModal(movieData);
       return movieData.id;
@@ -168,7 +167,7 @@ function getMovieDetails(id) {
         e.preventDefault();
         if (watchedStorage.includes(id) !== true) {
           watchedStorage.push(id);
-          console.log("added" + id);
+          console.log('added' + id);
         }
         if (queuedStorage.includes(id)) {
           const indexOfID = queuedStorage.indexOf(id);
@@ -196,7 +195,7 @@ function getMovieDetails(id) {
         e.preventDefault();
         if (queuedStorage.includes(id) !== true) {
           queuedStorage.push(id);
-          console.log("added" + id);
+          console.log('added' + id);
         }
         if (watchedStorage.includes(id)) {
           const indexOfID = watchedStorage.indexOf(id);
@@ -205,8 +204,8 @@ function getMovieDetails(id) {
           localStorage.setItem(
             'watchedMovies',
             watchedStorage.splice(indexOfID, 1).join()
-            );
-            console.log('removed' + id);
+          );
+          console.log('removed' + id);
         }
         localStorage.setItem('watchedMovies', watchedStorage);
         localStorage.setItem('queuedMovies', queuedStorage);
