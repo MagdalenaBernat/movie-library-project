@@ -73,18 +73,25 @@
   display: flex;
   margin: 0 auto 22px;
   max-width: 336px;
-  &::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    right: 0;
-    top: 3px;
-    width: 12px;
-    height: 12px;
-    background-image: url('../images/search.svg');
-    background-size: 12px 12px;
-    cursor: pointer;
-  }
+}
+
+.header__search-button {
+  display: inline-block;
+  position: absolute;
+  padding: 0;
+  border: none;
+  right: 0;
+  top: 2px;
+  width: 12px;
+  height: 12px;
+  background: none;
+  cursor: pointer;
+}
+
+.header__search-icon {
+  width: 12px;
+  height: 12px;
+  fill: white;
 }
 
 .header__search-input {
