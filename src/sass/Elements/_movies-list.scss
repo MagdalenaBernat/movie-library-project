@@ -4,8 +4,7 @@
   align-items: center;
   flex-wrap: wrap;
   flex-basis: 400px;
-  padding: 20px;
-  padding: 60px 20px 60px 20px;
+  padding: 60px 0px 60px 0px;
   margin: 0 auto;
   max-width: 952px;
 }
@@ -14,9 +13,11 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  margin: 15px;
+  margin: 20px;
+  margin-bottom: 10px;
+  margin-top: 0px;
   width: 280px;
-  max-height: 443px;
+  max-height: 470px;
   cursor: pointer;
 }
 .cover__image {
@@ -46,6 +47,9 @@
     }
   }
 }
+.cover__figcaption-movie-data {
+  height: 33px;
+}
 
 .cover__figcaption-movie-data {
   @include font($fw: 500, $fs: 12px, $lh: 14px, $tal: left);
@@ -61,7 +65,7 @@
   }
   .cover__container {
     width: 293px;
-    height: 443px;
+    margin: 15px;
   }
 }
 @media screen and (min-width: 1024px) {
