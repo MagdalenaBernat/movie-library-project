@@ -6,7 +6,7 @@
   flex-basis: 400px;
   padding: 60px 0px 60px 0px;
   margin: 0 auto;
-  max-width: 952px;
+  max-width: 912px;
 }
 .cover__container {
   display: flex;
@@ -65,7 +65,7 @@
   }
   .cover__container {
     width: 293px;
-    margin: 15px;
+    margin: 0px 15px 10px 15px;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -78,6 +78,5 @@
   }
   .cover__container {
     width: 274px;
-    height: 440px;
   }
 }
