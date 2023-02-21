@@ -143,80 +143,48 @@ function getMovieDetails(id) {
       queueBtn.setAttribute('id', id);
 
       if (watchedStorage.includes(id)) {
-        watchedBtn.disabled = true;
-        watchedBtn.style.background = 'gray';
-        watchedBtn.style.cursor = 'not-allowed';
-        watchedBtn.innerHTML = 'Watched';
-        queueBtn.disabled = false;
-        queueBtn.style.background = 'white';
-        queueBtn.style.cursor = 'pointer';
-        queueBtn.innerHTML = 'Add to queue';
+        watchedBtn.innerHTML = 'Remove from watched';
       }
       if (queuedStorage.includes(id)) {
-        queueBtn.disabled = true;
-        queueBtn.style.background = 'gray';
-        queueBtn.style.cursor = 'not-allowed';
-        queueBtn.innerHTML = 'Queued';
-        watchedBtn.disabled = false;
-        watchedBtn.style.background = 'var(--button-orange)';
-        watchedBtn.style.cursor = 'pointer';
-        watchedBtn.innerHTML = 'Add to watched';
+        queueBtn.innerHTML = 'Remove from queue';
       }
 
       watchedBtn.addEventListener('click', e => {
         e.preventDefault();
         if (watchedStorage.includes(id) !== true) {
           watchedStorage.push(id);
-          console.log('added' + id);
-        }
-        if (queuedStorage.includes(id)) {
-          const indexOfID = queuedStorage.indexOf(id);
-          console.log(indexOfID);
-          console.log(queuedStorage.splice(indexOfID, 1).join());
+          watchedBtn.innerHTML = 'Remove from watched';
+          Notify.success('Movie added to watched library');
+        } else if (watchedStorage.includes(id)) {
+          const indexOfID = watchedStorage.indexOf(id);
           localStorage.setItem(
-            'queuedMovies',
-            queuedStorage.splice(indexOfID, 1).join()
+            'watchedMovies',
+            watchedStorage.splice(indexOfID, 1).join()
           );
-          console.log('removed' + id);
+          watchedBtn.innerHTML = 'Add to watched';
+          Notify.success('Movie removed from watched library');
         }
         localStorage.setItem('watchedMovies', watchedStorage);
         localStorage.setItem('queuedMovies', queuedStorage);
-        watchedBtn.disabled = true;
-        watchedBtn.style.background = 'gray';
-        watchedBtn.style.cursor = 'not-allowed';
-        queueBtn.disabled = false;
-        queueBtn.style.background = 'var(--white)';
-        queueBtn.style.cursor = 'pointer';
-
-        Notify.success('Movie added to watched library');
       });
 
       queueBtn.addEventListener('click', e => {
         e.preventDefault();
         if (queuedStorage.includes(id) !== true) {
           queuedStorage.push(id);
-          console.log('added' + id);
-        }
-        if (watchedStorage.includes(id)) {
-          const indexOfID = watchedStorage.indexOf(id);
-          console.log(indexOfID);
-          console.log(watchedStorage.splice(indexOfID, 1).join());
+          queueBtn.innerHTML = 'Remove from queue';
+          Notify.success('Movie added to queued library');
+        } else if (queuedStorage.includes(id)) {
+          const indexOfID = queuedStorage.indexOf(id);
           localStorage.setItem(
-            'watchedMovies',
-            watchedStorage.splice(indexOfID, 1).join()
+            'queuedMovies',
+            queuedStorage.splice(indexOfID, 1).join()
           );
-          console.log('removed' + id);
+          queueBtn.innerHTML = 'Add to queue';
+          Notify.success('Movie removed from queued library');
         }
         localStorage.setItem('watchedMovies', watchedStorage);
         localStorage.setItem('queuedMovies', queuedStorage);
-        queueBtn.disabled = true;
-        queueBtn.style.background = 'gray';
-        queueBtn.style.cursor = 'not-allowed';
-        watchedBtn.disabled = false;
-        watchedBtn.style.background = 'var(--button-orange)';
-        watchedBtn.style.cursor = 'pointer';
-
-        Notify.success('Movie added to queue');
       });
     });
 }
