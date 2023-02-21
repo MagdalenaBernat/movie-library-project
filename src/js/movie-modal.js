@@ -245,4 +245,3 @@ export {
   queuedStorage,
   checkingLocalStorageForQueued,
 };
-
