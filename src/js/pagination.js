@@ -90,56 +90,7 @@ export const clearPageContent = () => {
   moviesContainer.innerHTML = '';
 };
 
-// export function renderPages(page) {
-//   const paginationParams = new URLSearchParams({
-//     _api_key: APIKey,
-//     _limit: MOVIES_PER_PAGE,
-//     _page: page,
-//   });
-//   clearPageContent();
-//   fetch(MOVIES_API_URL + paginationParams)
-//     .then(response => response.data)
-//     .then(getDataFromAPI());
-// }
-// renderPages(1);
-
-//render pages amount from API after searching
-// total_pages = response.total_results;
-
-// function pagesAmount(
-//   // moviesAmount = total_pages,
-//   selectPage = 1,
-//   pageSize = MOVIES_PER_PAGE
-// ) {
-//   const pages = Math.ceil(moviesAmount / pageSize);
-// }
-
-// export function renderPagesAfterSearching(page) {
-//   clearPageContent();
-//   fetch(MOVIES_API_URL + '?' + paginationParams)
-//     .then(response => response.data)
-//     .then(getDataFromAPI());
-//   pagesAmount();
-//   paginationBtns();
-// }
-// renderPagesAfterSearching(1);
-
-// selected btn listener
-// const selectPageBtn = document.querySelector('.pagination');
-// const selectPage = paginationContainer;
-
-// selectPageBtn.addEventListener('click', event => {
-//   const pageNumber = event.target.innerText;
-//   console.log(pageNumber);
-//   renderPagesAfterSearching(pageNumber);
-// });
-
-// selectPage.addEventListener('click', event => {
-//   const pageNumber = event.target.innerText;
-//   console.log(pageNumber);
-//   renderPagesAfterSearching(pageNumber);
-// });
-
+//
 paginationContainer.addEventListener('click', e => {
   if (e.target.localName === 'li' || e.target.localName === 'span') {
     clearPageContent();
@@ -162,7 +113,37 @@ paginationContainer.addEventListener('click', e => {
 });
 
 //render pages amount from "Watched"
-export function renderPagesFromWatched() {}
+export function renderPagesFromWatched() {
+  const watchedList = localStorage.getItem('watchedMovies');
+  console.log(watchedList);
+  const listLength = watchedList.split(',').length;
+  console.log(listLength);
 
-//render pages amount from "Queue"
-export function renderPagesFromQueue() {}
+  const pageSize = 20;
+
+  const totalPages = Math.ceil(listLength / pageSize);
+  console.log(totalPages);
+
+  paginationBtns(total_pages = totalPages, 1);
+
+  return totalPages;
+}
+renderPagesFromWatched();
+
+//render pages amount from "Queue"  
+export function renderPagesFromQueue() { 
+  const queuedList = localStorage.getItem('queuedMovies');
+  console.log(queuedList);
+  const queuedListLength = queuedList.split(',').length;
+  console.log(queuedListLength);
+
+  const queuePageSize = 20;
+
+  const queueTotalPages = Math.ceil(queuedListLength / queuePageSize);
+  console.log(queueTotalPages);
+
+  paginationBtns(total_pages = queueTotalPages, 1);
+  return queueTotalPages;
+}
+renderPagesFromQueue();
+
