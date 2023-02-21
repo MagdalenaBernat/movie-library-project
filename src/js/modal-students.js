@@ -6,7 +6,7 @@ import magdalena from '../images/students/magdalena.jpg';
 import mateusz from '../images/students/profile.jpg';
 import dominika from '../images/students/profile.jpg';
 import jacek from '../images/students/jacek.jpg';
-import kamil from '../images/students/profile.jpg';
+import kamil from '../images/students/kamil.jpg';
 import krzysztof from '../images/students/krzysztof.jpg';
 import maciej from '../images/students/maciej.jpg';
 
@@ -195,7 +195,7 @@ export function renderStudentsModal() {
             </div>
             <div class="students-modal__socials">
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/kamil-żurawski-9820b0179/"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -206,7 +206,7 @@ export function renderStudentsModal() {
                 />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/zurek28"
                 target="_blank"
                 rel="noreferrer noopener"
               >
