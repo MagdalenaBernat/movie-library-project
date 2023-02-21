@@ -4,15 +4,20 @@
   top: 0;
   width: 100%;
   height: 100%;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.25);
+  background-position: 100%;
   padding-top: 20px;
+  transition-property: visibility, opacity;
+  transition-duration: 300ms;
+  transition-timing-function: linear;
 
   &__content {
     position: relative;
     text-align: left;
     min-width: 280px;
     max-width: 440px;
-    height: auto;
+    height: 90%;
     margin: 0 auto;
     border-radius: 4px;
     background-color: var(--white);
@@ -23,6 +28,7 @@
     flex-direction: column;
     gap: 20px;
     padding: 48px 20px 20px 20px;
+    overflow-y: auto;
   }
 
   &__close-btn {
@@ -67,7 +73,7 @@
   }
 
   &__movie-title {
-    @include font($fw: 500, $fs: 20px, $lh: 23px, $tal: left, $tt: uppercase);
+    @include font($fw: 500, $fs: 20px, $lh: 35px, $tal: left, $tt: uppercase);
     color: var(--black);
     padding-bottom: 20px;
   }
@@ -131,6 +137,7 @@
 .queue-btn {
   background: var(--white);
   color: var(--black);
+  border: 1px solid #000000;
 }
 
 .modal-center {
@@ -148,6 +155,8 @@
       flex-direction: row;
       align-items: flex-start;
       padding: 50px 30px 30px 30px;
+      height: auto;
+      overflow: hidden;
     }
     &__image-container {
       min-width: 264px;
@@ -181,5 +190,4 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: scale(50%);
 }

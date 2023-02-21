@@ -34,6 +34,7 @@ const movieGenresLink =
 export const APIKey = 'ac2189c49864b4ab99e8ac3560f99981';
 
 const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
+  moviesContainer.innerHTML = "";
   addSpinner();
   const movieGenres = await getGenres(movieGenresLink);
   const TVGenres = await getGenres(TVGenresLink);
@@ -49,6 +50,11 @@ const listBuilder = moviesArray => {
     const movieCoverFigure = document.createElement('figure');
     movieCoverFigure.classList.add('cover__container');
 
+    //Creating more details label
+    const moreDetailsLabel = document.createElement('span');
+    moreDetailsLabel.classList.add('cover__label');
+    moreDetailsLabel.innerHTML = `Click for more details`;
+
     //Creating img tag for movie cover
     const coverImg = document.createElement('img');
     coverImg.classList.add('cover__image');
@@ -58,7 +64,11 @@ const listBuilder = moviesArray => {
     );
     coverImg.setAttribute('alt', elem['original_title']);
     coverImg.setAttribute('loading', 'lazy');
-
+    const imgAtrribute = coverImg.getAttribute('src');
+    if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
+      coverImg.setAttribute('src', `${noImage}`);
+      coverImg.setAttribute('alt', `no poster found`);
+    }
     //Creating figcaption (container for title, genres etc.)
     const coverFigcaption = document.createElement('figcaption');
     coverFigcaption.classList.add('cover__figcaption');
@@ -76,8 +86,14 @@ const listBuilder = moviesArray => {
 
     const movieGenresArray = [];
 
-    for (const id of elem['genre_ids']) {
-      movieGenresArray.push(genresList[`${id}`]);
+    if (elem['genre_ids']) {
+      for (const id of elem['genre_ids']) {
+        movieGenresArray.push(genresList[`${id}`]);
+      }
+    } else {
+      elem['genres'].forEach(e => {
+        movieGenresArray.push(genresList[`${e['id']}`]);
+      });
     }
 
     const releaseDate = new Date(
@@ -90,7 +106,9 @@ const listBuilder = moviesArray => {
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);
+
     movieCoverFigure.append(coverImg);
+    movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
     moviesContainer.append(movieCoverFigure);
 

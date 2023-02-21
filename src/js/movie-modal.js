@@ -1,7 +1,36 @@
 'use strict';
 
 import { addSpinner, removeSpinner } from './spinner';
-import { moviesContainer } from './movies-list';
+import { APIKey, moviesContainer } from './movies-list';
+import axios from 'axios';
+import { Notify } from 'notiflix';
+
+let watchedStorage = [];
+let queuedStorage = [];
+
+const stringToNumber = arrayOfStrings => {
+  const arrayOfNumbers = arrayOfStrings.map(Number);
+  return arrayOfNumbers;
+};
+
+const checkingLocalStorageForWatched = (type = 'watched') => {
+  if (localStorage.getItem(`${type}Movies`)) {
+    const localData = localStorage.getItem(`${type}Movies`).split(',');
+    watchedStorage = stringToNumber(localData);
+  }
+};
+
+const checkingLocalStorageForQueued = (type = 'queued') => {
+  if (localStorage.getItem(`${type}Movies`)) {
+    const localData = localStorage.getItem(`${type}Movies`).split(',');
+    queuedStorage = stringToNumber(localData);
+  }
+};
+
+checkingLocalStorageForWatched();
+checkingLocalStorageForQueued();
+
+import noImage from '../images/no-image.png';
 
 export function renderModal(movie) {
   const movieModal = document.querySelector('.movie-modal');
@@ -23,7 +52,7 @@ export function renderModal(movie) {
   <img
     class="movie-modal__image"
     src="https://image.tmdb.org/t/p/w500${movie.poster_path}"
-    alt="example image"
+    alt="${movie.original_title}"
     loading="lazy"
   />
 </div>
@@ -74,16 +103,21 @@ export function renderModal(movie) {
   </div>`;
 
   movieModal.innerHTML = markup;
-
+  const posterSrc = document.querySelector('.movie-modal__image');
+  if (posterSrc.getAttribute('src') === 'https://image.tmdb.org/t/p/w500null') {
+    posterSrc.setAttribute('src', `${noImage}`);
+    posterSrc.setAttribute('alt', `no poster found`);
+  }
   const closeBtn = document.querySelector('.movie-modal__close-btn');
 
   closeBtn.addEventListener('click', () => {
     movieModal.classList.add('is-hidden');
   });
 
-  body.addEventListener('click', event => {
+  body.addEventListener('click', function closeModal(event) {
     if (!event.target.closest('.movie-modal__content')) {
       movieModal.classList.add('is-hidden');
+      body.removeEventListener('click', closeModal);
     }
   });
 
@@ -93,25 +127,106 @@ export function renderModal(movie) {
       document.removeEventListener('keydown', escapeKey);
     }
   });
-
-  // close modal by clicking on a background to be done
-  // add to watched, add to queue function to be done
-
-  const watchedBtn = document.querySelector('.watched-btn');
-  const queueBtn = document.querySelector('.queue-btn');
 }
 
 function getMovieDetails(id) {
-  fetchDetails(id).then(movieData => renderModal(movieData));
-}
+  fetchDetails(id)
+    .then(movieData => {
+      renderModal(movieData);
+      return movieData.id;
+    })
+    .then(id => {
+      const watchedBtn = document.querySelector('.watched-btn');
+      const queueBtn = document.querySelector('.queue-btn');
 
+      watchedBtn.setAttribute('id', id);
+      queueBtn.setAttribute('id', id);
+
+      if (watchedStorage.includes(id)) {
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+        watchedBtn.innerHTML = 'Watched';
+        queueBtn.disabled = false;
+        queueBtn.style.background = 'white';
+        queueBtn.style.cursor = 'pointer';
+        queueBtn.innerHTML = 'Add to queue';
+      }
+      if (queuedStorage.includes(id)) {
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+        queueBtn.innerHTML = 'Queued';
+        watchedBtn.disabled = false;
+        watchedBtn.style.background = 'var(--button-orange)';
+        watchedBtn.style.cursor = 'pointer';
+        watchedBtn.innerHTML = 'Add to watched';
+      }
+
+      watchedBtn.addEventListener('click', e => {
+        e.preventDefault();
+        if (watchedStorage.includes(id) !== true) {
+          watchedStorage.push(id);
+          console.log('added' + id);
+        }
+        if (queuedStorage.includes(id)) {
+          const indexOfID = queuedStorage.indexOf(id);
+          console.log(indexOfID);
+          console.log(queuedStorage.splice(indexOfID, 1).join());
+          localStorage.setItem(
+            'queuedMovies',
+            queuedStorage.splice(indexOfID, 1).join()
+          );
+          console.log('removed' + id);
+        }
+        localStorage.setItem('watchedMovies', watchedStorage);
+        localStorage.setItem('queuedMovies', queuedStorage);
+        watchedBtn.disabled = true;
+        watchedBtn.style.background = 'gray';
+        watchedBtn.style.cursor = 'not-allowed';
+        queueBtn.disabled = false;
+        queueBtn.style.background = 'var(--white)';
+        queueBtn.style.cursor = 'pointer';
+
+        Notify.success('Movie added to watched library');
+      });
+
+      queueBtn.addEventListener('click', e => {
+        e.preventDefault();
+        if (queuedStorage.includes(id) !== true) {
+          queuedStorage.push(id);
+          console.log('added' + id);
+        }
+        if (watchedStorage.includes(id)) {
+          const indexOfID = watchedStorage.indexOf(id);
+          console.log(indexOfID);
+          console.log(watchedStorage.splice(indexOfID, 1).join());
+          localStorage.setItem(
+            'watchedMovies',
+            watchedStorage.splice(indexOfID, 1).join()
+          );
+          console.log('removed' + id);
+        }
+        localStorage.setItem('watchedMovies', watchedStorage);
+        localStorage.setItem('queuedMovies', queuedStorage);
+        queueBtn.disabled = true;
+        queueBtn.style.background = 'gray';
+        queueBtn.style.cursor = 'not-allowed';
+        watchedBtn.disabled = false;
+        watchedBtn.style.background = 'var(--button-orange)';
+        watchedBtn.style.cursor = 'pointer';
+
+        Notify.success('Movie added to queue');
+      });
+    });
+}
 const fetchDetails = async movieId => {
   addSpinner();
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=ac2189c49864b4ab99e8ac3560f99981`
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${APIKey}`
   );
 
-  const videoDetails = await response.json();
+  const videoDetails = await response.data;
   removeSpinner();
   return videoDetails;
 };
@@ -121,3 +236,12 @@ moviesContainer.addEventListener('click', e => {
     getMovieDetails(e.target.id);
   }
 });
+
+export {
+  getMovieDetails,
+  fetchDetails,
+  watchedStorage,
+  checkingLocalStorageForWatched,
+  queuedStorage,
+  checkingLocalStorageForQueued,
+};
