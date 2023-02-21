@@ -52,7 +52,10 @@ library.addEventListener('click', e => {
   home.classList.remove('navigation__list-link--active');
 
   const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
-  watchedMoviesPromises.then(resolve => listBuilder(resolve));
+  watchedMoviesPromises.then(resolve => {
+    resolve = resolve.slice(0, 20);
+    listBuilder(resolve)
+  });
 });
 
 buttonQueue.addEventListener('click', e => {
@@ -64,7 +67,10 @@ buttonQueue.addEventListener('click', e => {
   buttonWatched.classList.remove('header__button--active');
 
   const queuedMoviesPromises = collectMovieDetailsToQueuedArray();
-  queuedMoviesPromises.then(resolve => listBuilder(resolve));
+  queuedMoviesPromises.then(resolve =>  {
+    resolve = resolve.slice(0, 20);
+    listBuilder(resolve)
+  });
 });
 
 buttonWatched.addEventListener('click', e => {
@@ -76,7 +82,10 @@ buttonWatched.addEventListener('click', e => {
   buttonQueue.classList.remove('header__button--active');
 
   const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
-  watchedMoviesPromises.then(resolve => listBuilder(resolve));
+  watchedMoviesPromises.then(resolve =>  {
+    resolve = resolve.slice(0, 20);
+    listBuilder(resolve)
+  });
 });
 
 export { library };

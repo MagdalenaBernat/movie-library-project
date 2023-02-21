@@ -91,7 +91,25 @@ export const clearPageContent = () => {
 };
 
 //
+function statusCheck() {
+  const home = document.querySelector('.navigation__list-link--active');
+  if (home.textContent.toLowerCase().includes('home')) {
+    return 'home';
+  } else {
+    const activeBtn = document.querySelector('.header__button--active');
+    if (activeBtn.textContent.toLowerCase().includes('watched')) {
+      return 'watched';
+    } else {
+      return 'queue';
+    }
+  } 
+}
+
+//
 paginationContainer.addEventListener('click', e => {
+  const pageNumber = e.target.textContent;
+
+
   if (e.target.localName === 'li' || e.target.localName === 'span') {
     clearPageContent();
     if (searchText === '') {
@@ -112,6 +130,20 @@ paginationContainer.addEventListener('click', e => {
   }
 });
 
+// sprawdzić czy to jest liczba, jeżeli to nie jest liczba to która strzałka
+// jeżeli to jest liczba to włączyć stronę zgodnie z tą liczbą
+// jeżeli to strzałka to pobrać aktywną stronę i -1 lub +1
+// jeżeli kropki to nic nie rób
+// statusCheck
+// jeśli home -> to co jest w tej funkcji
+// jeśli watched albo queue to pobrać z localstorage listę
+// strona -1 *20
+// do indeksu o 19 więcej (np. od 20 do 39) albo do length -1
+// przeiterować po indeksie i wygenerować karty
+
+
+
+
 //render pages amount from "Watched"
 export function renderPagesFromWatched() {
   const watchedList = localStorage.getItem('watchedMovies');
@@ -124,7 +156,7 @@ export function renderPagesFromWatched() {
   const totalPages = Math.ceil(listLength / pageSize);
   console.log(totalPages);
 
-  paginationBtns(total_pages = totalPages, 1);
+  paginationBtns(totalPages, 1);
 
   return totalPages;
 }
