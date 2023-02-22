@@ -149,37 +149,37 @@ paginationContainer.addEventListener('click', e => {
 
 
 //render pages amount from "Watched"
-export function renderPagesFromWatched() {
-  const watchedList = localStorage.getItem('watchedMovies');
-  console.log(watchedList);
-  const listLength = watchedList.split(',').length;
-  console.log(listLength);
+// export function renderPagesFromWatched() {
+//   const watchedList = localStorage.getItem('watchedMovies');
+//   console.log(watchedList);
+//   const listLength = watchedList.split(',').length;
+//   console.log(listLength);
 
-  const pageSize = 20;
+//   const pageSize = 20;
 
-  const totalPages = Math.ceil(listLength / pageSize);
-  console.log(totalPages);
+//   const totalPages = Math.ceil(listLength / pageSize);
+//   console.log(totalPages);
 
-  paginationBtns(totalPages, 1);
+//   paginationBtns(totalPages, 1);
 
-  return totalPages;
-}
-renderPagesFromWatched();
+//   return totalPages;
+// }
+// renderPagesFromWatched();
 
-//render pages amount from "Queue"  
-export function renderPagesFromQueue() { 
-  const queuedList = localStorage.getItem('queuedMovies');
-  console.log(queuedList);
-  const queuedListLength = queuedList.split(',').length;
-  console.log(queuedListLength);
+// //render pages amount from "Queue"  
+// export function renderPagesFromQueue() { 
+//   const queuedList = localStorage.getItem('queuedMovies');
+//   console.log(queuedList);
+//   const queuedListLength = queuedList.split(',').length;
+//   console.log(queuedListLength);
 
-  const queuePageSize = 20;
+//   const queuePageSize = 20;
 
-  const queueTotalPages = Math.ceil(queuedListLength / queuePageSize);
-  console.log(queueTotalPages);
+//   const queueTotalPages = Math.ceil(queuedListLength / queuePageSize);
+//   console.log(queueTotalPages);
 
-  paginationBtns(total_pages = queueTotalPages, 1);
-  return queueTotalPages;
-}
-renderPagesFromQueue();
+//   // paginationBtns(total_pages = queueTotalPages, 1);
+//   return queueTotalPages;
+// }
+// renderPagesFromQueue();
 
