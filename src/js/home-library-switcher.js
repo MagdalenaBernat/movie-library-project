@@ -34,7 +34,6 @@ home.addEventListener('click', e => {
   header.classList.remove('header--library');
   home.classList.add('navigation__list-link--active');
   library.classList.remove('navigation__list-link--active');
-  buttonQueue.classList.remove('header__button--active');
 
   getDataFromAPI();
 });
@@ -50,6 +49,7 @@ library.addEventListener('click', e => {
   header.classList.add('header--library');
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
+  buttonQueue.classList.remove('header__button--active');
 
   const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
   watchedMoviesPromises.then(resolve => {

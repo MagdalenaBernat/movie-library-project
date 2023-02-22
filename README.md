@@ -12,11 +12,18 @@ HTML5
 CSS3
 JavaScript
 SASS
+Notiflix
+Axios
+Pagination
+
 parcel
 npm 
-Git
+Git/GitHub
+Figma
+
 
 Development team:
+
 
 Magdalena Bernat magdalena.bernat@onet.pl (Team Leader)
 

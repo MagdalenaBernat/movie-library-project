@@ -36,13 +36,6 @@ export function paginationBtns(total_pages, page) {
     }
   }
 
-  //how many pages show before the current page
-  if (page === total_pages) {
-    beforePages = beforePages - 2;
-  } else if (page === total_pages - 1) {
-    beforePages = beforePages - 1;
-  }
-
   //how many pages show after the current page
   if (page === 1) {
     afterPages = afterPages + 2;
@@ -121,7 +114,7 @@ paginationContainer.addEventListener('click', e => {
     }
   };
     
-  if (e.target.localName === 'li' || e.target.localName === 'span') { // for search
+  if (e.target.localName === 'li' || e.target.localName === 'span') { // for home
     clearPageContent();
     if (searchText === '') {
       const URLBuild = defaultMoviesURL + '&page=' + pageNumber;
@@ -134,13 +127,12 @@ paginationContainer.addEventListener('click', e => {
         '&query=' +
         searchText +
         '&page=' +
-        pageNumber; 
+        pageNumber;
       console.log(URLBuild);
       getDataFromAPI(URLBuild);
     }
   }
 });
-
 
 
 
