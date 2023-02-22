@@ -12,18 +12,33 @@ HTML5
 CSS3
 JavaScript
 SASS
+Notiflix
+Axios
+Pagination
+
 parcel
 npm 
-Git
+Git/GitHub
+Figma
+
 
 Development team:
 
+
 Magdalena Bernat magdalena.bernat@onet.pl (Team Leader)
+
 Mateusz Piszczatowski mateusz.piszczatowski@gmail.com (Scrum Master)
+
 Maciej Świszcz maciekswiszcz11@gmail.com (Developer)
+
 Krzysztof Olejniczak krzysztof.olejniczak@gmail.com (Developer)
+
+Kamil Żurawski zurek93@gmail.com (Developer)
+
 Dominika Tokarek domisiaxa@gmail.com (Developer) 
+
 Jacek Wójciak fr.banka@gmail.com (Developer)
+
 
 
 Project by GOIT students (group 2)
