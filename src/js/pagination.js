@@ -1,6 +1,6 @@
 'use strict';
 
-import { fetchMovies, searchText, total_pages } from './search-movies';
+import { fetchMovies, searchText } from './search-movies';
 import { APIKey, defaultMoviesURL, getDataFromAPI } from './movies-list';
 
 const paginationContainer = document.querySelector('.pagination');
