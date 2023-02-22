@@ -109,11 +109,22 @@ function statusCheck() {
 paginationContainer.addEventListener('click', e => {
   const pageNumber = e.target.textContent;
 
-
-  if (e.target.localName === 'li' || e.target.localName === 'span') {
+  function buttonAction(){
+    if (pageNumber === Number) {
+      return paginationBtns(total_pages, pageNumber);
+    } else if (pageNumber === '&#8226;&#8226;&#8226;') { // 3 dots
+      return;
+    } else if (pageNumber === '&#129128;') { // previous arrow
+      return (statusCheck(), paginationBtns(total_pages, pageNumber - 1));
+    } else { // next arrow
+      return (statusCheck(), paginationBtns(total_pages, pageNumber + 1));
+    }
+  };
+    
+  if (e.target.localName === 'li' || e.target.localName === 'span') { // for search
     clearPageContent();
     if (searchText === '') {
-      const URLBuild = defaultMoviesURL + '&page=' + e.target.textContent;
+      const URLBuild = defaultMoviesURL + '&page=' + pageNumber;
       getDataFromAPI(URLBuild);
     } else {
       const URLBuild =
@@ -123,25 +134,26 @@ paginationContainer.addEventListener('click', e => {
         '&query=' +
         searchText +
         '&page=' +
-        e.target.textContent;
+        pageNumber; 
       console.log(URLBuild);
       getDataFromAPI(URLBuild);
     }
   }
 });
 
-// sprawdzić czy to jest liczba, jeżeli to nie jest liczba to która strzałka
-// jeżeli to jest liczba to włączyć stronę zgodnie z tą liczbą
-// jeżeli to strzałka to pobrać aktywną stronę i -1 lub +1
-// jeżeli kropki to nic nie rób
+
+
+
+// sprawdzić czy to jest liczba, jeżeli to nie jest liczba to która strzałka  DONE
+// jeżeli to jest liczba to włączyć stronę zgodnie z tą liczbą    DONE
+// jeżeli to strzałka to pobrać aktywną stronę i -1 lub +1      DONE 
+// jeżeli kropki to nic nie rób       DONE?
 // statusCheck
 // jeśli home -> to co jest w tej funkcji
 // jeśli watched albo queue to pobrać z localstorage listę
 // strona -1 *20
 // do indeksu o 19 więcej (np. od 20 do 39) albo do length -1
 // przeiterować po indeksie i wygenerować karty
-
-
 
 
 //render pages amount from "Watched"
