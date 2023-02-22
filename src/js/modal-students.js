@@ -4,7 +4,7 @@ import ghLogo from '../images/github-mark.png';
 import linkeInLogo from '../images/linkedIn_logo.png';
 import magdalena from '../images/students/magdalena.jpg';
 import mateusz from '../images/students/mateusz.jpg';
-import dominika from '../images/students/profile.jpg';
+import dominika from '../images/students/dominika.jpg';
 import jacek from '../images/students/jacek.jpg';
 import kamil from '../images/students/kamil.jpg';
 import krzysztof from '../images/students/krzysztof.jpg';
@@ -121,7 +121,7 @@ export function renderStudentsModal() {
             </div>
             <div class="students-modal__socials">
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/dominika-tokarek-73b41a267/"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -132,7 +132,7 @@ export function renderStudentsModal() {
                 />
               </a>
               <a
-                href="https://github.com/"
+                href="https://github.com/Domisiaxa"
                 target="_blank"
                 rel="noreferrer noopener"
               >
