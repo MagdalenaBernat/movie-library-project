@@ -1,6 +1,6 @@
 'use strict';
 
-import { fetchMovies, searchText } from './search-movies';
+import { fetchMovies, searchText, total_pages } from './search-movies';
 import { APIKey, defaultMoviesURL, getDataFromAPI } from './movies-list';
 
 const paginationContainer = document.querySelector('.pagination');
@@ -34,6 +34,13 @@ export function paginationBtns(total_pages, page) {
     if (page > 3) {
       liTag += `<li class="dots"><span>&#8226;&#8226;&#8226;</span></li>`;
     }
+  }
+
+  //how many pages show before the current page
+  if (page === total_pages) {
+    beforePages = beforePages - 2;
+  } else if (page === total_pages - 1) {
+    beforePages = beforePages - 1;
   }
 
   //how many pages show after the current page
@@ -83,41 +90,61 @@ export const clearPageContent = () => {
   moviesContainer.innerHTML = '';
 };
 
-//
-function statusCheck() {
-  const home = document.querySelector('.navigation__list-link--active');
-  if (home.textContent.toLowerCase().includes('home')) {
-    return 'home';
-  } else {
-    const activeBtn = document.querySelector('.header__button--active');
-    if (activeBtn.textContent.toLowerCase().includes('watched')) {
-      return 'watched';
-    } else {
-      return 'queue';
-    }
-  } 
-}
+// export function renderPages(page) {
+//   const paginationParams = new URLSearchParams({
+//     _api_key: APIKey,
+//     _limit: MOVIES_PER_PAGE,
+//     _page: page,
+//   });
+//   clearPageContent();
+//   fetch(MOVIES_API_URL + paginationParams)
+//     .then(response => response.data)
+//     .then(getDataFromAPI());
+// }
+// renderPages(1);
 
-//
+//render pages amount from API after searching
+// total_pages = response.total_results;
+
+// function pagesAmount(
+//   // moviesAmount = total_pages,
+//   selectPage = 1,
+//   pageSize = MOVIES_PER_PAGE
+// ) {
+//   const pages = Math.ceil(moviesAmount / pageSize);
+// }
+
+// export function renderPagesAfterSearching(page) {
+//   clearPageContent();
+//   fetch(MOVIES_API_URL + '?' + paginationParams)
+//     .then(response => response.data)
+//     .then(getDataFromAPI());
+//   pagesAmount();
+//   paginationBtns();
+// }
+// renderPagesAfterSearching(1);
+
+// selected btn listener
+// const selectPageBtn = document.querySelector('.pagination');
+// const selectPage = paginationContainer;
+
+// selectPageBtn.addEventListener('click', event => {
+//   const pageNumber = event.target.innerText;
+//   console.log(pageNumber);
+//   renderPagesAfterSearching(pageNumber);
+// });
+
+// selectPage.addEventListener('click', event => {
+//   const pageNumber = event.target.innerText;
+//   console.log(pageNumber);
+//   renderPagesAfterSearching(pageNumber);
+// });
+
 paginationContainer.addEventListener('click', e => {
-  const pageNumber = e.target.textContent;
-
-  function buttonAction(){
-    if (pageNumber === Number) {
-      return paginationBtns(total_pages, pageNumber);
-    } else if (pageNumber === '&#8226;&#8226;&#8226;') { // 3 dots
-      return;
-    } else if (pageNumber === '&#129128;') { // previous arrow
-      return (statusCheck(), paginationBtns(total_pages, pageNumber - 1));
-    } else { // next arrow
-      return (statusCheck(), paginationBtns(total_pages, pageNumber + 1));
-    }
-  };
-    
-  if (e.target.localName === 'li' || e.target.localName === 'span') { // for home
+  if (e.target.localName === 'li' || e.target.localName === 'span') {
     clearPageContent();
     if (searchText === '') {
-      const URLBuild = defaultMoviesURL + '&page=' + pageNumber;
+      const URLBuild = defaultMoviesURL + '&page=' + e.target.textContent;
       getDataFromAPI(URLBuild);
     } else {
       const URLBuild =
@@ -127,59 +154,15 @@ paginationContainer.addEventListener('click', e => {
         '&query=' +
         searchText +
         '&page=' +
-        pageNumber;
+        e.target.textContent;
       console.log(URLBuild);
       getDataFromAPI(URLBuild);
     }
   }
 });
 
-
-
-// sprawdzić czy to jest liczba, jeżeli to nie jest liczba to która strzałka  DONE
-// jeżeli to jest liczba to włączyć stronę zgodnie z tą liczbą    DONE
-// jeżeli to strzałka to pobrać aktywną stronę i -1 lub +1      DONE 
-// jeżeli kropki to nic nie rób       DONE?
-// statusCheck
-// jeśli home -> to co jest w tej funkcji
-// jeśli watched albo queue to pobrać z localstorage listę
-// strona -1 *20
-// do indeksu o 19 więcej (np. od 20 do 39) albo do length -1
-// przeiterować po indeksie i wygenerować karty
-
-
 //render pages amount from "Watched"
-// export function renderPagesFromWatched() {
-//   const watchedList = localStorage.getItem('watchedMovies');
-//   console.log(watchedList);
-//   const listLength = watchedList.split(',').length;
-//   console.log(listLength);
+export function renderPagesFromWatched() {}
 
-//   const pageSize = 20;
-
-//   const totalPages = Math.ceil(listLength / pageSize);
-//   console.log(totalPages);
-
-//   paginationBtns(totalPages, 1);
-
-//   return totalPages;
-// }
-// renderPagesFromWatched();
-
-// //render pages amount from "Queue"  
-// export function renderPagesFromQueue() { 
-//   const queuedList = localStorage.getItem('queuedMovies');
-//   console.log(queuedList);
-//   const queuedListLength = queuedList.split(',').length;
-//   console.log(queuedListLength);
-
-//   const queuePageSize = 20;
-
-//   const queueTotalPages = Math.ceil(queuedListLength / queuePageSize);
-//   console.log(queueTotalPages);
-
-//   // paginationBtns(total_pages = queueTotalPages, 1);
-//   return queueTotalPages;
-// }
-// renderPagesFromQueue();
-
+//render pages amount from "Queue"
+export function renderPagesFromQueue() {}
