@@ -1,6 +1,8 @@
 'use strict';
 
 import axios from 'axios';
+import noImage from '../images/no-image.png';
+import { paginationBtns } from './pagination';
 import { addSpinner, removeSpinner } from './spinner';
 
 const moviesContainer = document.querySelector('.covers-container');
@@ -25,7 +27,7 @@ const getMovies = async url => {
   return moviesArray;
 };
 
-const defaultMoviesURL =
+export const defaultMoviesURL =
   'https://api.themoviedb.org/3/trending/movie/week?api_key=ac2189c49864b4ab99e8ac3560f99981';
 const TVGenresLink =
   'https://api.themoviedb.org/3/genre/tv/list?api_key=ac2189c49864b4ab99e8ac3560f99981&language=en-US';
@@ -34,7 +36,7 @@ const movieGenresLink =
 export const APIKey = 'ac2189c49864b4ab99e8ac3560f99981';
 
 const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
-  moviesContainer.innerHTML = "";
+  moviesContainer.innerHTML = '';
   addSpinner();
   const movieGenres = await getGenres(movieGenresLink);
   const TVGenres = await getGenres(TVGenresLink);

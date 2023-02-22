@@ -5,18 +5,23 @@ import { Notify } from 'notiflix';
 import { genresList, APIKey } from './movies-list';
 import noImage from '../images/no-image.png';
 import { addSpinner, removeSpinner } from './spinner';
+import { paginationBtns } from './pagination';
 
 export async function fetchMovies(title, page) {
   return await axios
     .get(
       `https://api.themoviedb.org/3/search/movie?api_key=${APIKey}&query=${title}&page=${page}`
     )
-    .then(response => response.data)
+    .then(response => {
+      const total_pages = response.data.total_pages;
+      paginationBtns(total_pages, 1);
+      return total_pages, response.data;
+    })
     .catch(error => console.log(error.response.data));
 }
 let pageNumber = 1;
 let foundMovies = 0;
-let searchText = '';
+export let searchText = '';
 
 const searchForm = document.querySelector('.header__search-form');
 const moviesList = document.querySelector('.covers-container');

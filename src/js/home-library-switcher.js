@@ -34,7 +34,6 @@ home.addEventListener('click', e => {
   header.classList.remove('header--library');
   home.classList.add('navigation__list-link--active');
   library.classList.remove('navigation__list-link--active');
-  buttonQueue.classList.remove('header__button--active');
 
   getDataFromAPI();
 });
@@ -50,9 +49,13 @@ library.addEventListener('click', e => {
   header.classList.add('header--library');
   library.classList.add('navigation__list-link--active');
   home.classList.remove('navigation__list-link--active');
+  buttonQueue.classList.remove('header__button--active');
 
   const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
-  watchedMoviesPromises.then(resolve => listBuilder(resolve));
+  watchedMoviesPromises.then(resolve => {
+    resolve = resolve.slice(0, 20);
+    listBuilder(resolve)
+  });
 });
 
 buttonQueue.addEventListener('click', e => {
@@ -64,7 +67,10 @@ buttonQueue.addEventListener('click', e => {
   buttonWatched.classList.remove('header__button--active');
 
   const queuedMoviesPromises = collectMovieDetailsToQueuedArray();
-  queuedMoviesPromises.then(resolve => listBuilder(resolve));
+  queuedMoviesPromises.then(resolve =>  {
+    resolve = resolve.slice(0, 20);
+    listBuilder(resolve)
+  });
 });
 
 buttonWatched.addEventListener('click', e => {
@@ -76,7 +82,10 @@ buttonWatched.addEventListener('click', e => {
   buttonQueue.classList.remove('header__button--active');
 
   const watchedMoviesPromises = collectMovieDetailsToWatchedArray();
-  watchedMoviesPromises.then(resolve => listBuilder(resolve));
+  watchedMoviesPromises.then(resolve =>  {
+    resolve = resolve.slice(0, 20);
+    listBuilder(resolve)
+  });
 });
 
 export { library };
